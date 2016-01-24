@@ -11,21 +11,6 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160123133226) do
-
-  create_table "accounts", force: :cascade do |t|
-    t.float    "rate"
-    t.float    "balance"
-    t.float    "min_floor"
-    t.float    "min_rate"
-    t.string   "acct_name"
-    t.boolean  "weekly"
-    t.integer  "week_offset"
-    t.integer  "week_period"
-    t.integer  "day"
-    t.decimal  "amount"
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-  end
+ActiveRecord::Schema.define(version: 0) do
 
 end

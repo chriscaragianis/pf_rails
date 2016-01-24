@@ -9,36 +9,14 @@ Feature: A user visits the site
 
   Scenario: A user visits the site
     When a user visits the site
-    Then display the Start link
+    Then display the new button
 
-  Scenario: User clicks the Start button
+  Scenario: User clicks the new button
     Given a user visits the site
-    When a user clicks Start
+    When a user clicks the new button
     Then display an account form
-    And the db is cleared
 
   Scenario: User submits a form
-    Given a user visits the site
-    And a user clicks Start
-    And the form is filled out
-    And a user submits Save Account
-    Then an Account is saved
-    And add another is displayed
-    And finish is displayed
-
-  Scenario: User adds another Account
-    Given a user visits the site
-    And a user clicks Start
-    And the form is filled out
-    And a user submits Save Account
-    And a user clicks Add Another
-    Then display an account form
-
-  Scenario: User finishes adding Accounts
-    Given a user visits the site
-    And a user clicks Start
-    And the form is filled out
-    And a user submits Save Account
-    And a user clicks Done with accounts
-    Then list accounts
-    And Run Scenario is displayed
+    Given an account form is filled out
+    And a user clicks add
+    Then display a blank account form
