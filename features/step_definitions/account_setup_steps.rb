@@ -51,6 +51,6 @@ Then(/^list accounts$/) do
   expect(page).to have_content('Name: test')
 end
 
-Then(/^Run Scenario is displayed$/) do
-  expect(page).to have_content("Run Scenario")
+Then(/^Create Scenario is displayed$/) do
+  expect(page).to have_content("Define Scenario")
 end

@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'welcome/setup' => 'welcome#setup'
 
+
+  get 'scenario' => 'scenario#enter'
+  post 'scenario/run' => 'scenario#run'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
