@@ -10,6 +10,10 @@ When(/^a user clicks (.*)$/) do |link|
   click_link(link)
 end
 
+When(/^a user button clicks (.*)$/) do |link|
+  click_button(link)
+end
+
 When(/^a user submits (.*)$/) do |button|
   click_button(button)
 end

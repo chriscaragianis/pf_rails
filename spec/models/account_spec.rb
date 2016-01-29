@@ -66,3 +66,21 @@ RSpec.describe Account, "#bill" do
     end
   end
 end
+
+RSpec.describe Account, "#pay_with_leftover" do
+  before(:each) { @acct = Account.new(balance: -100) }
+
+  it "adjusts balance accurately" do
+    @acct.pay_with_leftover(300)
+    expect(@acct.balance).to eq(0)
+  end
+
+  it "returns the leftover" do
+    expect(@acct.pay_with_leftover(300)).to eq(200)
+  end
+
+  it "doesn't overpay" do
+    expect(@acct.pay_with_leftover(50)).to eq(0)
+    expect(@acct.balance).to eq(-50)
+  end
+end

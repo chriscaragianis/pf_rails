@@ -1,16 +1,12 @@
 require 'BalanceRecord'
 
 class Scenario
-  attr_accessor :balance, :today, :Scenario_name, :accounts, :balances
+  attr_accessor :scenario_name, :balances
 
   def set_defaults
-    @balance ||= 0
-    @accounts ||= []
     @balances ||= [BalanceRecord.new()]
-    @Scenario_name ||= "NAME"
-    @today ||= Date.today
+    @scenario_name ||= "NAME"
     @vest_level ||= 0
-    @vest_targets ||= []
   end
 
   def initialize params = {}
@@ -41,7 +37,7 @@ class Scenario
     start_index = @balances.index { |balrec| balrec.date == start_day } || 0
     (finish_day - start_day).to_i.times do |i|
       @balances[start_index + i + 1] = day_calc @balances[start_index + i]
-      if (i == 0 || @balances[start_index + i].balance < @vest_level) && @balances[start_index + i + 1].balance > @vest_level then
+      if ((i == 0 || @balances[start_index + i].balance < @vest_level) && @balances[start_index + i + 1].balance > @vest_level) then
         bookmark = [i + 1, @balances[start_index + i + 1].date]
         vest = @vest_level
       end
@@ -51,17 +47,19 @@ class Scenario
   end
 
   def vest index, amount
-    if (@vest_targets == []) then
+    amt = amount
+    leftover = amt
+    if (amount <= 0 || @balances[index].accounts.last.balance >= 0) then
       return
     end
-    @balances[index].balance -= amount
-    @balances[index].accounts[@vest_targets[0]].balance += amount
-    if (@balances[index].accounts[@vest_targets[0]].balance >= 0) then
-      left = @balances[index].accounts[@vest_targets[0]].balance
-      @balances[index].balance += left
-      @balances[index].accounts[@vest_targets[0]].balance = 0
-      @vest_targets.shift ? vest(index, left) : return
+    @balances[index].accounts.each do |acct|
+      if (acct.balance < 0) then
+        leftover = acct.pay_with_leftover(amt)
+        @balances[index].balance -= amt - leftover
+        amt = vest(index, leftover)
+      end
     end
+    leftover
   end
 
 

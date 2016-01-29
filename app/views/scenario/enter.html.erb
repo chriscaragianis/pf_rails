@@ -1,3 +1,5 @@
+Enter Scenario
+
 <%= form_tag(:action => "run") do %>
 
   <p>
@@ -21,7 +23,12 @@
   </p>
 
   <p>
-    <%= submit_tag("Setup Scenario") %>
+    <%= label_tag(:vest_level) %>
+    <%= text_field_tag(:vest_level)%>
+  </p>
+
+  <p>
+    <%= submit_tag("Setup Scenario", id: "submit") %>
   </p>
 
 <% end %>

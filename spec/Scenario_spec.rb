@@ -8,23 +8,6 @@ balrec_1 = {balance: 500, date: Date.today}
 balrec_2 = {balance: 400, date: Date.today + 1}
 week_hash = {weekly: 1, week_offset: 0, week_period: 1, day: 5}
 
-RSpec.describe Scenario, '#initialize' do
-  context "with no given data" do
-    it "creates a default Scenario object" do
-      scenario = Scenario.new
-      expect(scenario.balance).to eq(0)
-      expect(scenario.today).to eq(Date.today)
-    end
-  end
-  context "with date and balance given" do
-    it "creates a Scenario object with correct balance and date" do
-      scenario = Scenario.new(today: (Date.today + 1), balance: 2000)
-      expect(scenario.balance).to eq(2000)
-      expect(scenario.today).to eq(Date.today + 1)
-    end
-  end
-end
-
 RSpec.describe Scenario, "#day_calc" do
   before(:all) do
     @scene = Scenario.new
@@ -50,12 +33,12 @@ end
 
 RSpec.describe Scenario, "#run" do
   before(:all) do
-    acct_1 = Account.new(carry_balance: false, balance: 0, weekly: 1, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100)
+    acct_1 = Account.new(carry_balance: false, balance: 0, weekly: true, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100)
     acct_2 = Account.new(balance: -200, day: 24, min_rate: -0.02, rate: 0.25)
     acct_3 = Account.new(balance: -400, day: 22, fixed_amount: 100, rate: 0.06)
-    @scene = Scenario.new(vest_targets: [1,2], vest_level: 600, accounts: [acct_1, acct_2, acct_3])
+    @scene = Scenario.new(vest_level: 600, accounts: [acct_1, acct_2, acct_3])
     @scene.balances = [BalanceRecord.new(date: Date.new(2016,1,20), balance: 500, accounts: [acct_1, acct_2, acct_3])]
-      @scene.run(Date.new(2016,1,20), Date.new(2016,2,19))
+    @scene.run(Date.new(2016,1,20), Date.new(2016,2,19))
   end
 
   it "results in the right size balance array" do
@@ -67,7 +50,7 @@ RSpec.describe Scenario, "#run" do
   end
 
   it "has the right last balance" do
-    expect(@scene.balances.last.balance).to be_within(0.0001).of(396.066556)
+    expect(@scene.balances.last.balance).to be_within(0.0001).of(196.0665569)
   end
 
   it "has the right account balances on day 16" do
@@ -79,10 +62,10 @@ end
 
 RSpec.describe Scenario, "#vest" do
   before(:all) do
-    acct_1 = Account.new(balance: -200, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
-    acct_2 = Account.new(balance: -200, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
-    acct_3 = Account.new(balance: -400, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
-    @scene = Scenario.new(vest_targets: [0,1,2])
+    acct_1 = Account.new(acct_name: "acct1", balance: -200, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
+    acct_2 = Account.new(acct_name: "acct2", balance: -200, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
+    acct_3 = Account.new(acct_name: "acct3", balance: -400, day: Date.today.day, fixed_amount: 100, rate: 0.2*365)
+    @scene = Scenario.new
     @scene.balances = [BalanceRecord.new(date: Date.today, balance: 500, accounts: [acct_1, acct_2, acct_3])]
     @scene.vest(0, 500)
   end

@@ -45,10 +45,21 @@ class Account < ActiveRecord::Base
   end
 
   def amount
-    if (self.balance.abs <= self.min_floor) then
+    if (self.balance.abs < self.min_floor) then
       return self.balance.abs
     else
       (self.fixed_amount == 0) ? [self.min_rate * self.balance, self.min_floor].max : self.fixed_amount
+    end
+  end
+
+  def pay_with_leftover amt
+    diff = amt + self.balance
+    if (diff > 0) then
+      self.balance = 0
+      return diff
+    else
+      self.balance = diff
+      return 0
     end
   end
 

@@ -5,6 +5,9 @@ Feature: User creates and runs a scenario on a set of accounts
     Then scenario form is displayed
 
   Scenario: User submits scenario info
-    Given a filled out scenario form
-    And the user submits Save Scenario
+    Given accounts exist
+    And a user at the new scenario page
+    And a filled out Scenario form
+    And a user button clicks submit 
     Then a results page is displayed
+    And the results are correct
