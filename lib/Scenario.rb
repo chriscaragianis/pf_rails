@@ -1,7 +1,7 @@
 require 'BalanceRecord'
 
 class Scenario
-  attr_accessor :scenario_name, :balances
+  attr_accessor :scenario_name, :balances, :vest_level
 
   def set_defaults
     @balances ||= [BalanceRecord.new()]
@@ -30,13 +30,14 @@ class Scenario
   def run(start_day, finish_day)
     bookmark = [0, finish_day]
     vest = 0
-    if start_day >= finish_day then
+    if (start_day >= finish_day) then
       return
     end
-    @balances.sort! #Usually does not need to be done, check outside method
+    @balances.sort! #Usually does not need to be done, figure out how to get rid of this
     start_index = @balances.index { |balrec| balrec.date == start_day } || 0
     (finish_day - start_day).to_i.times do |i|
       @balances[start_index + i + 1] = day_calc @balances[start_index + i]
+      puts @balances[start_index + i + 1]
       if ((i == 0 || @balances[start_index + i].balance < @vest_level) && @balances[start_index + i + 1].balance > @vest_level) then
         bookmark = [i + 1, @balances[start_index + i + 1].date]
         vest = @vest_level
@@ -46,7 +47,8 @@ class Scenario
     run(bookmark[1], finish_day)
   end
 
-  def vest index, amount
+  #Precondition: @balances.accounts is sorted in order they should be paid off
+  def vest(index, amount)
     amt = amount
     leftover = amt
     if (amount <= 0 || @balances[index].accounts.last.balance >= 0) then
@@ -61,6 +63,4 @@ class Scenario
     end
     leftover
   end
-
-
 end

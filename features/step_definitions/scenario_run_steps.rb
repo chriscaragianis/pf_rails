@@ -23,9 +23,9 @@ end
 
 Given(/^accounts exist$/) do
   Account.delete_all
-  Account.new(carry_balance: false, balance: 0, weekly: true, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100).save
-  Account.new(balance: -200, day: 24, min_rate: -0.02, rate: 0.25).save
-  Account.new(balance: -400, day: 22, fixed_amount: 100, rate: 0.06).save
+  Account.new(balance: 0, weekly: true, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100).save
+  Account.new(carry_balance: true, balance: -200, day: 24, min_rate: -0.02, rate: 0.25).save
+  Account.new(carry_balance: true, balance: -400, day: 22, fixed_amount: 100, rate: 0.06).save
 end
 
 Given(/^a filled out Scenario form$/) do
@@ -42,5 +42,5 @@ Then(/^a results page is displayed$/) do
 end
 
 Then(/^the results are correct$/) do
-  expect(page).to have_content("Balance: 196.06655693992377 NAME: -100.0, NAME: 0.0, NAME: -199.60970902170973,")
+  expect(page).to have_content("Balance: 196.88292069531627 NAME: 0.0, NAME: 0.0,")
 end

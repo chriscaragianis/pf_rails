@@ -1,51 +1,65 @@
-<%= form_for :account, url: accounts_path do |f| %>
-  <p>
-    <%= f.label :acct_name %><br>
-    <%= f.text_field :acct_name %>
-  </p>
+<div class="row">
+  <div class="col-md-6 col-md-offset-3">
+    <%= form_for :account, url: accounts_path do |f| %>
+      <p>
+        <%= f.label :acct_name %><br>
+        <%= f.text_field :acct_name, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :balance %><br>
-    <%= f.text_area :balance %>
-  </p>
+      <p>
+        <%= f.label :balance %><br>
+        <%= f.text_field :balance, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :rate %><br>
-    <%= f.text_area :rate %>
-  </p>
+      <p>
+        <%= f.label :rate %><br>
+        <%= f.text_field :rate, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :min_rate %><br>
-    <%= f.text_area :min_rate %>
-  </p>
+      <p>
+        <%= f.label :min_rate %><br>
+        <%= f.text_field :min_rate, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :min_floor %><br>
-    <%= f.text_area :min_floor %>
-  </p>
+      <p>
+        <%= f.label :min_floor %><br>
+        <%= f.text_field :min_floor, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :day %><br>
-    <%= f.text_area :day %>
-  </p>
+      <p>
+        <%= f.label :day %><br>
+        <%= f.text_field :day, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :weekly %><br>
-    <%= f.check_box :weekly %>
-  </p>
+      <p>
+        <%= f.label :weekly %><br>
+        <%= f.check_box :weekly, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :carry_balance %><br>
-    <%= f.check_box :carry_balance %>
-  </p>
+      <p>
+        <%= f.label :week_offset %><br>
+        <%= f.text_field :week_offset, class: 'form-control' %>
+      </p>
 
-  <p>
-    <%= f.label :fixed_amount %><br>
-    <%= f.text_area :fixed_amount %>
-  </p>
+      <p>
+        <%= f.label :week_period %><br>
+        <%= f.text_field :week_period, class: 'form-control' %>
+      </p>
+
+      <p>
+        <%= f.label :carry_balance %><br>
+        <%= f.check_box :carry_balance, class: 'form-control' %>
+      </p>
+
+      <p>
+        <%= f.label :fixed_amount %><br>
+        <%= f.text_field :fixed_amount, class: 'form-control' %>
+      </p>
 
 
-  <p>
-    <%= f.submit %>
-  </p>
-<% end %>
+      <p>
+        <%= f.submit %>
+      </p>
+    <% end %>
+  </div>
+</div>

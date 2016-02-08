@@ -2,8 +2,8 @@ require 'date'
 require 'Scenario'
 #options hashes
 
-day_calc_1 = {acct_name: "day_calc_1", balance: -1000, day: Date.today.day, fixed_amount: 100, rate: 0.2*365}
-day_calc_2 = {acct_name: "day_calc_2",balance: -1100, day: Date.today.day, fixed_amount: 100, rate: 0.2*365}
+day_calc_1 = {carry_balance: true, acct_name: "day_calc_1", balance: -1000, day: Date.today.day, fixed_amount: 100, rate: 0.2*365}
+day_calc_2 = {carry_balance: true, acct_name: "day_calc_2",balance: -1100, day: Date.today.day, fixed_amount: 100, rate: 0.2*365}
 balrec_1 = {balance: 500, date: Date.today}
 balrec_2 = {balance: 400, date: Date.today + 1}
 week_hash = {weekly: 1, week_offset: 0, week_period: 1, day: 5}
@@ -33,9 +33,9 @@ end
 
 RSpec.describe Scenario, "#run" do
   before(:all) do
-    acct_1 = Account.new(carry_balance: false, balance: 0, weekly: true, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100)
-    acct_2 = Account.new(balance: -200, day: 24, min_rate: -0.02, rate: 0.25)
-    acct_3 = Account.new(balance: -400, day: 22, fixed_amount: 100, rate: 0.06)
+    acct_1 = Account.new(balance: 0, weekly: true, week_offset: 0, week_period: 1, day: 5, fixed_amount: -100)
+    acct_2 = Account.new(carry_balance: true, balance: -200, day: 24, min_rate: -0.02, rate: 0.25)
+    acct_3 = Account.new(carry_balance: true, balance: -400, day: 22, fixed_amount: 100, rate: 0.06)
     @scene = Scenario.new(vest_level: 600, accounts: [acct_1, acct_2, acct_3])
     @scene.balances = [BalanceRecord.new(date: Date.new(2016,1,20), balance: 500, accounts: [acct_1, acct_2, acct_3])]
     @scene.run(Date.new(2016,1,20), Date.new(2016,2,19))
@@ -50,7 +50,7 @@ RSpec.describe Scenario, "#run" do
   end
 
   it "has the right last balance" do
-    expect(@scene.balances.last.balance).to be_within(0.0001).of(196.0665569)
+    expect(@scene.balances.last.balance).to be_within(0.0001).of(196.88292069531627)
   end
 
   it "has the right account balances on day 16" do

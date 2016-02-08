@@ -1,8 +1,0 @@
-RESULTS
-<% @scene.balances.each do |bal_rec| %>
-
-<%= bal_rec.date %>, Balance: <%= bal_rec.balance %>
-  <% bal_rec.accounts.each do |acct| %>
-    <%= acct.acct_name %>: <%= acct.balance %>,
-  <% end %><br>
-<% end %>
