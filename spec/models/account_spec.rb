@@ -4,12 +4,11 @@ def account_with_all
   Account.new(acct_name: "test account",
               rate: 0.06,
               balance: -1000,
-              min_floor: 200,
-              min_rate: 0.02,
+              min_rate: -0.02,
               weekly: false,
               week_offset: 0,
               week_period: 0,
-              day: 0,
+              day: 5,
               fixed_amount: 0,
               carry_balance: false
               )
@@ -26,6 +25,11 @@ RSpec.describe Account, type: :model do
 
   it "has a day" do
     @acct.update(day: nil)
+    expect(@acct).not_to be_valid
+  end
+
+  it "has a min_rate" do 
+    @acct.update(min_rate: nil)
     expect(@acct).not_to be_valid
   end
 
@@ -64,5 +68,42 @@ RSpec.describe Account, "#to_s" do
   it "formats correctly as a string" do
     acct = account_with_all
     expect(acct.to_s).to eq("Name: test account, Balance: -1000.0")
+  end
+end
+
+RSpec.describe Account, "#bill" do
+  before(:each) do
+    @acct = account_with_all
+  end
+
+  it "sends a weekly bill correctly" do
+    @acct.update(weekly: true, week_period: 1, week_offset: 0)
+    expect(@acct.bill(Date.new(2016, 2, 8))).to eq(0)
+    expect(@acct.bill(Date.new(2016, 2, 12))).to eq(20)
+  end
+
+  it "sends a monthly bill correctly" do
+    expect(@acct.bill(Date.new(2016, 2, 8))).to eq(0)
+    expect(@acct.bill(Date.new(2016, 2, 5))).to eq(20)
+  end
+end
+
+RSpec.describe Account, "#amount" do
+  before(:each) do
+    @acct = account_with_all
+  end
+
+  it "returns the balance if less than fixed amount" do
+    @acct.update(fixed_amount: 2000)
+    expect(@acct.amount).to eq(1000)
+  end
+
+  it "returns the fixed_amount if the min_rate*balance is too small" do
+    @acct.update(fixed_amount: 100)
+    expect(@acct.amount).to eq(100)
+  end
+
+  it "returns the min_rate*balance if large enough" do
+    expect(@acct.amount).to eq(20)
   end
 end

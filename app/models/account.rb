@@ -10,6 +10,7 @@ end
 
 class Account < ActiveRecord::Base
   validates :day, presence: true
+  validates :min_rate, presence: true
 
   validates :week_offset, presence: true, if: :weekly?
   validates :week_period, presence: true, if: :weekly?
@@ -27,7 +28,6 @@ class Account < ActiveRecord::Base
       fixed_amount: self.fixed_amount,
       balance: self.balance,
       day: self.day,
-      min_floor: self.min_floor,
       min_rate: self.min_rate,
       weekly: self.weekly,
       week_offset: self.week_offset,
@@ -61,12 +61,10 @@ class Account < ActiveRecord::Base
   end
 
   def amount
-    if (self.balance.abs < self.min_floor) then
+    if (self.balance.abs < self.fixed_amount) then
       self.balance.abs
-    elsif (self.fixed_amount == 0)
-      [self.min_rate * self.balance, self.min_floor].max
     else
-      self.fixed_amount
+      [self.min_rate * self.balance, self.fixed_amount].max
     end
   end
 
