@@ -107,3 +107,22 @@ RSpec.describe Account, "#amount" do
     expect(@acct.amount).to eq(20)
   end
 end
+
+RSpec.describe Account, "#compound" do
+  before(:each) do
+    @acct = account_with_all
+  end
+
+  it "compunds if carry_balance" do
+    @acct.update(carry_balance: true)
+    @acct.compound
+    expect(@acct.balance).to eq(-1000 + -1000 * 0.06 / 365)
+  end
+
+  it "zeroes balance if not carry_balance" do
+    @acct.compound
+    expect(@acct.balance).to eq(0)
+  end
+end
+
+
