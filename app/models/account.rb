@@ -9,6 +9,7 @@ class AccountValidator < ActiveModel::Validator
 end
 
 class Account < ActiveRecord::Base
+  has_and_belongs_to_many :balance_records
   validates :day, presence: true
   validates :min_rate, presence: true
 

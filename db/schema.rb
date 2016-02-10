@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160202235431) do
+ActiveRecord::Schema.define(version: 20160210202022) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "rate"
@@ -23,18 +23,20 @@ ActiveRecord::Schema.define(version: 20160202235431) do
     t.integer  "week_offset"
     t.integer  "week_period"
     t.integer  "day"
-    t.datetime "created_at",    null: false
-    t.datetime "updated_at",    null: false
+    t.datetime "created_at",        null: false
+    t.datetime "updated_at",        null: false
     t.float    "fixed_amount"
     t.boolean  "carry_balance"
+    t.integer  "balance_record_id"
   end
 
   create_table "balance_records", force: :cascade do |t|
     t.date     "date"
     t.float    "balance"
     t.string   "name"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.integer  "scenario_id"
   end
 
   create_table "scenarios", force: :cascade do |t|

@@ -62,64 +62,43 @@ RSpec.describe Account, type: :model do
     @acct.update(carry_balance: true, rate: nil)
     expect(@acct).not_to be_valid
   end
-end
 
-RSpec.describe Account, "#to_s" do
-  it "formats correctly as a string" do
-    acct = account_with_all
-    expect(acct.to_s).to eq("Name: test account, Balance: -1000.0")
-  end
-end
-
-RSpec.describe Account, "#bill" do
-  before(:each) do
-    @acct = account_with_all
+  it "#to_s formats correctly as a string" do
+    expect(@acct.to_s).to eq("Name: test account, Balance: -1000.0")
   end
 
-  it "sends a weekly bill correctly" do
+  it "#bill sends a weekly bill correctly" do
     @acct.update(weekly: true, week_period: 1, week_offset: 0)
     expect(@acct.bill(Date.new(2016, 2, 8))).to eq(0)
     expect(@acct.bill(Date.new(2016, 2, 12))).to eq(20)
   end
 
-  it "sends a monthly bill correctly" do
+  it "#bill sends a monthly bill correctly" do
     expect(@acct.bill(Date.new(2016, 2, 8))).to eq(0)
     expect(@acct.bill(Date.new(2016, 2, 5))).to eq(20)
   end
-end
-
-RSpec.describe Account, "#amount" do
-  before(:each) do
-    @acct = account_with_all
-  end
-
-  it "returns the balance if less than fixed amount" do
+  
+  it "#amount returns the balance if less than fixed amount" do
     @acct.update(fixed_amount: 2000)
     expect(@acct.amount).to eq(1000)
   end
 
-  it "returns the fixed_amount if the min_rate*balance is too small" do
+  it "#amount returns the fixed_amount if the min_rate*balance is too small" do
     @acct.update(fixed_amount: 100)
     expect(@acct.amount).to eq(100)
   end
 
-  it "returns the min_rate*balance if large enough" do
+  it "#amount returns the min_rate*balance if large enough" do
     expect(@acct.amount).to eq(20)
   end
-end
 
-RSpec.describe Account, "#compound" do
-  before(:each) do
-    @acct = account_with_all
-  end
-
-  it "compunds if carry_balance" do
+  it "#compund compounds if carry_balance" do
     @acct.update(carry_balance: true)
     @acct.compound
     expect(@acct.balance).to eq(-1000 + -1000 * 0.06 / 365)
   end
 
-  it "zeroes balance if not carry_balance" do
+  it "#compond zeroes balance if not carry_balance" do
     @acct.compound
     expect(@acct.balance).to eq(0)
   end
