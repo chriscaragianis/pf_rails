@@ -10,4 +10,7 @@ class BalanceRecord < ActiveRecord::Base
     self.date <=> other.date
   end
 
+  def to_s
+    "Date: #{self.date}, Balance: #{self.balance}"
+  end
 end

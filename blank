@@ -1,0 +1,13 @@
+
+/home/chriscaragianis/.gem/ruby/2.2.2/gems/bundler-1.10.6/lib/bundler/shared_helpers.rb:78: warning: Insecure world writable dir /home/chriscaragianis/bin/FDK/Tools/linux in PATH, mode 040777
+.*
+
+Pending: (Failures listed here are expected and do not affect your suite's status)
+
+  1) WelcomeHelper add some examples to (or delete) /home/chriscaragianis/pf_rails/spec/helpers/welcome_helper_spec.rb
+     # Not yet implemented
+     # ./spec/helpers/welcome_helper_spec.rb:14
+
+Finished in 0.33526 seconds (files took 2.93 seconds to load)
+2 examples, 0 failures, 1 pending
+
