@@ -62,10 +62,14 @@ class Account < ActiveRecord::Base
   end
 
   def amount
-    if (self.balance.abs < self.fixed_amount) then
-      self.balance.abs
+    unless (self.fixed_amount < 0) then
+      if (self.balance.abs < self.fixed_amount) then
+        self.balance.abs
+      else
+        [self.min_rate * self.balance, self.fixed_amount].max
+      end
     else
-      [self.min_rate * self.balance, self.fixed_amount].max
+      self.fixed_amount
     end
   end
 

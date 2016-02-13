@@ -28,7 +28,7 @@ RSpec.describe Account, type: :model do
     expect(@acct).not_to be_valid
   end
 
-  it "has a min_rate" do 
+  it "has a min_rate" do
     @acct.update(min_rate: nil)
     expect(@acct).not_to be_valid
   end
@@ -77,7 +77,7 @@ RSpec.describe Account, type: :model do
     expect(@acct.bill(Date.new(2016, 2, 8))).to eq(0)
     expect(@acct.bill(Date.new(2016, 2, 5))).to eq(20)
   end
-  
+
   it "#amount returns the balance if less than fixed amount" do
     @acct.update(fixed_amount: 2000)
     expect(@acct.amount).to eq(1000)
@@ -86,6 +86,11 @@ RSpec.describe Account, type: :model do
   it "#amount returns the fixed_amount if the min_rate*balance is too small" do
     @acct.update(fixed_amount: 100)
     expect(@acct.amount).to eq(100)
+  end
+
+  it "#amount handles negative amounts correctly" do
+    @acct.update(fixed_amount: -100)
+    expect(@acct.amount).to eq(-100)
   end
 
   it "#amount returns the min_rate*balance if large enough" do
@@ -100,6 +105,18 @@ RSpec.describe Account, type: :model do
 
   it "#compond zeroes balance if not carry_balance" do
     @acct.compound
+    expect(@acct.balance).to eq(0)
+  end
+
+  it "#pay returns zero and adjusts balance if small" do
+    @acct.balance = -1000
+    expect(@acct.pay(500)).to eq(0)
+    expect(@acct.balance).to eq(-500)
+  end
+
+  it "#pay returns difference and zeros balance if large" do
+    @acct.balance = -1000
+    expect(@acct.pay(1500)).to eq(500)
     expect(@acct.balance).to eq(0)
   end
 end

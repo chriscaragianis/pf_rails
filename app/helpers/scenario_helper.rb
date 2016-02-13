@@ -5,7 +5,9 @@ module ScenarioHelper
     bal_rec.accounts.each do |val|
       new_account = val.acct_copy
       new_account.compound
-      new_account.balance += new_account.bill(bal_rec.date)
+      if (val.carry_balance) then
+        new_account.balance += new_account.bill(bal_rec.date)
+      end
       balance -= new_account.bill(bal_rec.date)
       accounts << new_account
     end
