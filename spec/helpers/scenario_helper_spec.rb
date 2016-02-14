@@ -60,4 +60,5 @@ RSpec.describe ScenarioHelper, type: :helper do
   it "#day_calc doesn't change the balance unless carry_balance" do
     expect(helper.day_calc(@bal_rec).accounts.first.balance).to eq(0)
   end
+
 end

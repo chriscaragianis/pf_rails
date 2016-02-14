@@ -11,6 +11,6 @@ class BalanceRecord < ActiveRecord::Base
   end
 
   def to_s
-    "Date: #{self.date}, Balance: #{self.balance}"
+    "Date: #{self.date}, Balance: #{self.balance}, Created: #{self.created_at}"
   end
 end

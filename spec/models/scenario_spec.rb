@@ -46,4 +46,28 @@ RSpec.describe Scenario, type: :model do
   end
   #it "#run should not vest when not appropriate"
 
+  it "#create_balance_record_list should not create a balance record with bad dates" do
+    sc = create(:scenario)
+    sc.create_balance_record_list(Date.today, Date.today - 1)
+    expect(sc.balance_records.count).to eq(0)
+  end
+
+  it "#create_balance_record_list should delete any preexisting balance_records" do
+    @scene.balance_records << create(:balance_record)
+    @scene.create_balance_record_list(Date.today, Date.today - 1)
+    @scene.save
+    expect(@scene.balance_records.count).to eq(0)
+  end
+
+  it "#create_balance_record_list creates the right number of balance records" do
+    sc = create(:scenario)
+    sc.create_balance_record_list(Date.today, Date.today + 5)
+    expect(sc.balance_records.count).to eq(5)
+  end
+
+  it "#create_balance_records_list give the balance records the correct dates" do
+    sc = create(:scenario)
+    sc.create_balance_record_list(Date.today, Date.today + 5)
+    sc.balance_records.each_with_index { |br, i| expect(br.date).to eq(Date.today + i) }
+  end
 end

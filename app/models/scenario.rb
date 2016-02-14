@@ -13,10 +13,10 @@ include ScenarioHelper
       self.save
 
 ####
-      self.balance_records.each do |br|
-        puts "\n#{br.date}, #{br.balance}: *****"
-        br.accounts.each {|acct| puts "\t#{acct}" }
-      end
+#      self.balance_records.each do |br|
+#        puts "\n#{br.date}, #{br.balance}: *****"
+#        br.accounts.each {|acct| puts "\t#{acct}" }
+#      end
 ####
 
       return
@@ -47,5 +47,15 @@ include ScenarioHelper
       end
     end
     leftover
+  end
+
+  def create_balance_record_list(first_day, last_day)
+    BalanceRecord.where(scenario_id: self.id).delete_all
+    index_day = first_day
+    while (index_day < last_day) do
+      self.balance_records << FactoryGirl.create(:balance_record, date: index_day)
+      index_day += 1
+    end
+    self.save
   end
 end
