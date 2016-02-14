@@ -32,33 +32,33 @@ RSpec.describe ScenarioHelper, type: :helper do
     @bal_rec.save
   end
 
-  it "#day_calc returns a valid balance record of the correct size" do
-    new_bal = day_calc(@bal_rec)
+  it "#day_calc returns a hash of a valid balance record of the correct size" do
+    new_bal = BalanceRecord.new(day_calc(@bal_rec))
     new_bal.save
     expect(new_bal).to be_valid
     expect(new_bal.accounts.count).to eq(@bal_rec.accounts.count)
   end
 
   it "#day_calc correctly changes the date" do
-    expect(helper.day_calc(@bal_rec).date).to eq(@bal_rec.date + 1)
+    expect(helper.day_calc(@bal_rec)[:date]).to eq(@bal_rec.date + 1)
   end
 
   it "#day_calc correctly compounds interest" do
-    expect(helper.day_calc(@bal_rec).accounts.last.balance).to eq(-1100)
+    expect(helper.day_calc(@bal_rec)[:accounts].last.balance).to eq(-1100)
   end
 
   it "#day_calc correctly debits a bill" do
     @bal_rec.accounts.last.update(fixed_amount: 200, rate: 0)
-    expect(helper.day_calc(@bal_rec).balance).to eq(@bal_rec.balance - 125)
+    expect(helper.day_calc(@bal_rec)[:balance]).to eq(@bal_rec.balance - 125)
   end
 
   it "#day_calc correctly credits a bill" do
     @bal_rec.accounts.last.update(fixed_amount: 200)
-    expect(helper.day_calc(@bal_rec).accounts.last.balance).to eq(@bal_rec.accounts.last.balance + 200)
+    expect(helper.day_calc(@bal_rec)[:accounts].last.balance).to eq(@bal_rec.accounts.last.balance + 200)
   end
 
   it "#day_calc doesn't change the balance unless carry_balance" do
-    expect(helper.day_calc(@bal_rec).accounts.first.balance).to eq(0)
+    expect(helper.day_calc(@bal_rec)[:accounts].first.balance).to eq(0)
   end
 
 end

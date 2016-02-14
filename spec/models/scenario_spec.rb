@@ -52,11 +52,14 @@ RSpec.describe Scenario, type: :model do
     expect(sc.balance_records.count).to eq(0)
   end
 
-  it "#create_balance_record_list should delete any preexisting balance_records" do
-    @scene.balance_records << create(:balance_record)
-    @scene.create_balance_record_list(Date.today, Date.today - 1)
+  it "#create_balance_record_list should delete any preexisting \
+      balance_records within the given range" do
+    @scene.balance_records << create(:balance_record, date: Date.today)
+    @scene.balance_records << create(:balance_record, date: Date.today - 1)
+    @scene.balance_records << create(:balance_record, date: Date.today + 1)
+    @scene.create_balance_record_list(Date.today, Date.today + 1)
     @scene.save
-    expect(@scene.balance_records.count).to eq(0)
+    expect(@scene.balance_records.count).to eq(3)
   end
 
   it "#create_balance_record_list creates the right number of balance records" do

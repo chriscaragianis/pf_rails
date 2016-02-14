@@ -7,6 +7,7 @@ include ScenarioHelper
   validates :vest_level, presence: true
 
   def run(start_day, finish_day)
+    create_balance_record_list(start_day + 1, finish_day)
     bookmark = [0, finish_day]
     vest_amount = 0
     if (start_day >= finish_day) then
@@ -21,7 +22,6 @@ include ScenarioHelper
 
       return
     end
-    start_index = self.balance_records.index { |balrec| balrec.date == start_day } || 0
     (finish_day - start_day).to_i.times do |i|
       self.balance_records << day_calc(self.balance_records[start_index + i])
       if ((i == 0 || self.balance_records[start_index + i].balance < self.vest_level) && self.balance_records[start_index + i + 1].balance > self.vest_level) then
@@ -50,7 +50,7 @@ include ScenarioHelper
   end
 
   def create_balance_record_list(first_day, last_day)
-    BalanceRecord.where(scenario_id: self.id).delete_all
+    BalanceRecord.where(scenario_id: self.id, date: (first_day..(last_day - 1))).delete_all
     index_day = first_day
     while (index_day < last_day) do
       self.balance_records << FactoryGirl.create(:balance_record, date: index_day)

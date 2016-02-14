@@ -11,6 +11,6 @@ module ScenarioHelper
       balance -= new_account.bill(bal_rec.date)
       accounts << new_account
     end
-    BalanceRecord.new(date: bal_rec.date + 1, balance: balance, accounts: accounts)
+    Hash[date: bal_rec.date + 1, balance: balance, accounts: accounts]
   end
 end
