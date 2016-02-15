@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.describe BalanceRecord, type: :model do
   before(:each) do
+    DatabaseCleaner.clean
     @brecord = build(:balance_record)
   end
 
@@ -23,6 +24,16 @@ RSpec.describe BalanceRecord, type: :model do
     acct = build(:account, day: nil)
     @brecord.accounts << acct
     expect(@brecord).not_to be_valid
+  end
+
+  it "has unique date in scenario scope" do
+    scene = create(:scenario)
+    br1 = create(:balance_record, date: Date.today)
+    scene.balance_records << br1
+    br2 = create(:balance_record, date: Date.today)
+    expect(br1).to be_valid
+    scene.balance_records << br2
+    expect(br2).not_to be_valid
   end
 end
 

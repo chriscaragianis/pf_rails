@@ -2,7 +2,7 @@ module ScenarioHelper
   def day_calc bal_rec
     accounts = []
     balance = bal_rec.balance
-    bal_rec.accounts.each do |val|
+    bal_rec.accounts.all.each do |val|
       new_account = val.acct_copy
       new_account.compound
       if (val.carry_balance) then

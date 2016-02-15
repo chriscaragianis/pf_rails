@@ -1,6 +1,7 @@
 FactoryGirl.define do
-  factory :balance_record do |b|
-    b.balance 1.5
-    b.date "2016-02-09"
+  sequence(:date) { |n| Date.today + n }
+  factory :balance_record do
+    balance 1.5
+    date 
   end
 end

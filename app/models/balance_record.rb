@@ -5,7 +5,8 @@ class BalanceRecord < ActiveRecord::Base
 
   validates :date, presence: true
   validates :balance, presence: true
-  
+  validates_uniqueness_of :date, scope: :scenario_id
+
   def <=> other
     self.date <=> other.date
   end

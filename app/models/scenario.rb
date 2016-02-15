@@ -6,43 +6,41 @@ include ScenarioHelper
   validates :name, presence: true, length: { minimum: 2 }
   validates :vest_level, presence: true
 
-  def run(start_day, finish_day)
-    create_balance_record_list(start_day + 1, finish_day)
-    bookmark = [0, finish_day]
+  def run(start_date, finish_date)
+    self.save
+    create_balance_record_list(start_date + 1, finish_date)
+    vest_date = finish_date
     vest_amount = 0
-    if (start_day >= finish_day) then
-      self.save
-
-####
-#      self.balance_records.each do |br|
-#        puts "\n#{br.date}, #{br.balance}: *****"
-#        br.accounts.each {|acct| puts "\t#{acct}" }
-#      end
-####
+    if (start_date >= finish_date) then
 
       return
     end
-    (finish_day - start_day).to_i.times do |i|
-      self.balance_records << day_calc(self.balance_records[start_index + i])
-      if ((i == 0 || self.balance_records[start_index + i].balance < self.vest_level) && self.balance_records[start_index + i + 1].balance > self.vest_level) then
-        bookmark = [i + 1, self.balance_records[start_index + i + 1].date]
+    (finish_date - start_date).to_i.times do |i|
+
+      #This line uses date_calc to update the next balance_record
+      #using the current balance_record
+      self.balance_records.where(date: start_date + i + 1).last.update(day_calc(self.balance_records.where(date: start_date + i).last))
+
+      #This line checks for vesting and sets up vesting if needed
+      if ((i == 0 || self.balance_records.where(date: start_date + i).last.balance < self.vest_level) && self.balance_records.where(date: start_date + i + 1).last.balance > self.vest_level) then
+        vest_date = start_date + i + 1
         vest_amount = self.vest_level
       end
     end
-    vest(start_index + bookmark[0], vest_amount)
-    run(bookmark[1], finish_day)
+    vest(vest_date, vest_amount)
+    run(vest_date, finish_date)
   end
 
-  def vest(index, amount)
+  def vest(day, amount)
     amt = amount
     leftover = amt
-    if (amount <= 0 || self.balance_records[index].accounts.last.balance >= 0) then
+    if (amount <= 0 || self.balance_records.where(date: day).last.accounts.last.balance >= 0) then
       return
     end
-    self.balance_records[index].accounts.each do |acct|
+    self.balance_records.where(date: day).last.accounts.each do |acct|
       if (acct.balance < 0) then
         leftover = acct.pay(amt)
-        self.balance_records[index].balance -= amt - leftover
+        self.balance_records.where(date: day).last.balance -= amt - leftover
         amt = vest(index, leftover)
       end
     end
@@ -50,10 +48,10 @@ include ScenarioHelper
   end
 
   def create_balance_record_list(first_day, last_day)
-    BalanceRecord.where(scenario_id: self.id, date: (first_day..(last_day - 1))).delete_all
+    BalanceRecord.where(scenario_id: self.id, date: (first_day..(last_day))).delete_all
     index_day = first_day
-    while (index_day < last_day) do
-      self.balance_records << FactoryGirl.create(:balance_record, date: index_day)
+    while (index_day <= last_day) do
+      self.balance_records << FactoryGirl.create(:balance_record, date: index_day, scenario_id: self.id)
       index_day += 1
     end
     self.save
