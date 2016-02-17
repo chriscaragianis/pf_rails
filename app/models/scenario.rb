@@ -27,25 +27,10 @@ include ScenarioHelper
         vest_amount = self.vest_level
       end
     end
-    vest(vest_date, vest_amount)
+    self.balance_records.where(date: vest_date).last.vest(vest_amount)
     run(vest_date, finish_date)
   end
 
-  def vest(day, amount)
-    amt = amount
-    leftover = amt
-    if (amount <= 0 || self.balance_records.where(date: day).last.accounts.last.balance >= 0) then
-      return
-    end
-    self.balance_records.where(date: day).last.accounts.each do |acct|
-      if (acct.balance < 0) then
-        leftover = acct.pay(amt)
-        self.balance_records.where(date: day).last.balance -= amt - leftover
-        amt = vest(index, leftover)
-      end
-    end
-    leftover
-  end
 
   def create_balance_record_list(first_day, last_day)
     BalanceRecord.where(scenario_id: self.id, date: (first_day..(last_day))).delete_all

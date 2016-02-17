@@ -11,6 +11,7 @@ end
 class Account < ActiveRecord::Base
   has_and_belongs_to_many :balance_records
   validates :day, presence: true
+  validates :vest_priority, presence: true
   validates :min_rate, presence: true
 
   validates :week_offset, presence: true, if: :weekly?
@@ -35,7 +36,8 @@ class Account < ActiveRecord::Base
       week_period: self.week_period,
       rate: self.rate,
       acct_name: self.acct_name,
-      carry_balance: self.carry_balance
+      carry_balance: self.carry_balance,
+      vest_priority: self.vest_priority
     )
   end
 

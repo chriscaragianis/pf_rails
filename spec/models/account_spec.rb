@@ -10,7 +10,8 @@ def account_with_all
               week_period: 0,
               day: 5,
               fixed_amount: 0,
-              carry_balance: false
+              carry_balance: false,
+              vest_priority: 1
               )
 end
 
@@ -21,6 +22,11 @@ RSpec.describe Account, type: :model do
 
   it "should be valid" do
     expect(@acct).to be_valid
+  end
+
+  it "has a vest_priority" do
+    @acct.update(vest_priority: nil)
+    expect(@acct).not_to be_valid
   end
 
   it "has a day" do

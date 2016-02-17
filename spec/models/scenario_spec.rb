@@ -6,7 +6,7 @@ RSpec.describe Scenario, type: :model do
     @scene = create(:scenario, vest_level: 1050)
     @bal_rec = create(:balance_record, date: Date.new(2016,2,3), balance: 1000)
     @car = create(:account, acct_name: "CAR", carry_balance: true, rate: 0.06, balance: -5500, day: 5, fixed_amount: 300)
-    @pay = create(:account, acct_name: "PAY", weekly: true, week_period: 1, week_offset: 0, day: 5, fixed_amount: -200)
+    @pay = create(:account, acct_name: "PAY", balance: 0,  weekly: true, week_period: 1, week_offset: 0, day: 5, fixed_amount: -200)
     @bal_rec.update(accounts:  [@pay, @car])
   end
 
@@ -45,19 +45,8 @@ RSpec.describe Scenario, type: :model do
     @scene.balance_records << @bal_rec
     @scene.run(Date.new(2016,2,3), Date.new(2016,2,20))
     br = @scene.balance_records.select { |bal_rec| bal_rec.date == Date.new(2016, 2, 13) }
-####
-#      puts @scene.balance_records.count
-#      @scene.balance_records.all.each do |br_|
-#        puts br_
-#        br_.accounts.all.each do |acct|
-#          puts "\tAcct: #{acct.acct_name}, Bal: #{acct.balance}"
-#        end
-#      end
-####
-
-    expect(br.last.balance).to eq(0)
+    expect(br.last.balance).to eq(50)
   end
-  #it "#run should not vest when not appropriate"
 
   it "#create_balance_record_list should not create a balance record with bad dates" do
     sc = create(:scenario)
@@ -71,7 +60,6 @@ RSpec.describe Scenario, type: :model do
     @scene.balance_records << create(:balance_record, scenario_id: @scene.id,date: Date.today - 1)
     @scene.balance_records << create(:balance_record, scenario_id: @scene.id,date: Date.today + 1)
     @scene.save
-#    puts "***#{@scene.balance_records.count}***"
     @scene.create_balance_record_list(Date.today, Date.today + 1)
     expect(@scene.balance_records.count).to eq(3)
   end
@@ -87,4 +75,5 @@ RSpec.describe Scenario, type: :model do
     sc.create_balance_record_list(Date.today, Date.today + 5)
     sc.balance_records.each_with_index { |br, i| expect(br.date).to eq(Date.today + i) }
   end
+
 end

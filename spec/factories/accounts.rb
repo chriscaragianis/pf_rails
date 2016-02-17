@@ -9,5 +9,6 @@ FactoryGirl.define do
     carry_balance false
     week_period 1
     week_offset 1
+    vest_priority 1
   end
 end
