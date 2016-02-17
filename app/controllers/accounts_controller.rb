@@ -4,16 +4,17 @@ class AccountsController < ApplicationController
   end
 
   def new
+    @acc = Account.all.to_a
   end
 
   def show
   end
 
   def create
-    render "accounts/choice"
     acct = Account.new(account_params)
-    puts acct.carry_balance
     acct.save
+    @acc = Account.all.to_a
+    render "accounts/new"
   end
 
   private
@@ -29,7 +30,8 @@ class AccountsController < ApplicationController
         :fixed_amount,
         :carry_balance,
         :week_period,
-        :week_offset
+        :week_offset,
+        :vest_priority
       )
     end
 end
