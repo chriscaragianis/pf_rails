@@ -1,4 +1,8 @@
 Rails.application.routes.draw do
+  get 'scenario/new'
+
+  get 'scenario/create'
+
   get 'welcome/index'
 
   # The priority is based upon order of creation: first created -> highest priority.
