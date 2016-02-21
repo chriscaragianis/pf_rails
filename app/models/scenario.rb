@@ -1,5 +1,5 @@
 class Scenario < ActiveRecord::Base
-include ScenarioHelper
+include ScenariosHelper
 
   has_many :balance_records
 
@@ -36,7 +36,9 @@ include ScenarioHelper
     BalanceRecord.where(scenario_id: self.id, date: (first_day..(last_day))).delete_all
     index_day = first_day
     while (index_day <= last_day) do
-      self.balance_records << FactoryGirl.create(:balance_record, date: index_day, scenario_id: self.id)
+      br = BalanceRecord.new(date: index_day, balance: 1.5, scenario_id: self.id)
+      br.save
+      self.balance_records << br
       index_day += 1
     end
     self.save

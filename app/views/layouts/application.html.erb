@@ -13,14 +13,17 @@
       <ul class="nav navbar-nav">
         <li><%= link_to 'New Account', '/accounts/new' %> </li>
         <li><%= link_to 'Setup Scenario', '/scenarios/new' %> </li>
-        <li><a href="#">Link</a></li>
+        <li><%= link_to 'Run Scenario', '/balance_records/new' %></li>
       </ul>
     </div>
   </nav>
+  <% if flash[:alert] %>
+    <div class="alert"><%= flash[:alert] %></div>
+  <% end %>
   <div class="row">
     <div class="col-md-3 sidebar">
       <ul id="account_list">
-        <% @acc.each do |acct| %>
+        <% Account.all.to_a.each do |acct| %>
           <li class="acct_box" id="#{acct.id}">
             <%= acct.acct_name %></br>
             Balance: <%= acct.balance %></br>

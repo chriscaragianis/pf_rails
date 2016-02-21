@@ -1,10 +1,10 @@
 class AccountsController < ApplicationController
+  include ApplicationHelper
   def index
     @accounts = Account.all
   end
 
   def new
-    @acc = Account.all.to_a
   end
 
   def show
@@ -13,7 +13,6 @@ class AccountsController < ApplicationController
   def create
     acct = Account.new(account_params)
     acct.save
-    @acc = Account.all.to_a
     render "accounts/new"
   end
 

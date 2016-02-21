@@ -17,7 +17,12 @@ end
 
 RSpec.describe Account, type: :model do
   before(:each) do
+    DatabaseCleaner.start
     @acct = account_with_all
+  end
+
+  after(:each) do
+    DatabaseCleaner.clean
   end
 
   it "should be valid" do

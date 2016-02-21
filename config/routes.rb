@@ -13,6 +13,8 @@ Rails.application.routes.draw do
   get 'welcome/setup' => 'welcome#setup'
 
   resource :scenarios
+  resource :balance_records
+  get '/results' => 'scenarios#run_scenario'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

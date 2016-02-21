@@ -2,10 +2,14 @@ require 'rails_helper'
 
 RSpec.describe BalanceRecord, type: :model do
   before(:each) do
-    DatabaseCleaner.clean
+    DatabaseCleaner.start
     @brecord = create(:balance_record, balance: 1000)
     @car = create(:account, acct_name: "CAR", carry_balance: true, rate: 0.06, balance: -5500, day: 5, fixed_amount: 300)
     @pay = create(:account, acct_name: "PAY", balance: 0,  weekly: true, week_period: 1, week_offset: 0, day: 5, fixed_amount: -200)
+  end
+
+  after(:each) do
+    DatabaseCleaner.clean
   end
 
   it "should be valid" do

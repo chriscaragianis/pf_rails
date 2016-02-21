@@ -13,6 +13,7 @@ RSpec.describe Scenario, type: :model do
   after(:each) do
     DatabaseCleaner.clean
   end
+
   it "should be valid" do
     expect(@scene).to be_valid
   end
