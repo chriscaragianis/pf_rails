@@ -16,7 +16,7 @@ class ScenariosController < ApplicationController
     br = BalanceRecord.new(balance: params[:balance], date: start_date)
     br.scenario_id = @sc.id
     br.save
-    @sc.run(start_date + 1, end_date)
+    @sc.run(start_date + 1, end_date-1)
     @sc.save
   end
 
