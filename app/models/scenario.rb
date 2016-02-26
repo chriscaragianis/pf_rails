@@ -12,22 +12,30 @@ include ScenariosHelper
     vest_date = finish_date
     vest_amount = 0
     if (start_date >= finish_date) then
-
+      puts self.balance_records.all.map { |br| "#{br.date}, #{br.balance}" }
       return
     end
     (finish_date - start_date).to_i.times do |i|
 
       #This line uses date_calc to update the next balance_record
       #using the current balance_record
-      self.balance_records.where(date: start_date + i + 1).last.update(day_calc(self.balance_records.where(date: start_date + i).last))
+
+      #Supposedly balance_records have enforced uniqueness by scenario
+      #Nonetheless, this...
+      br_new = self.balance_records.where(date: start_date + i + 1).last
+      br_old = self.balance_records.where(date: start_date + i).last
+      br_new.update(day_calc(br_old))
 
       #This line checks for vesting and sets up vesting if needed
-      if ((i == 0 || self.balance_records.where(date: start_date + i).last.balance < self.vest_level) && self.balance_records.where(date: start_date + i + 1).last.balance > self.vest_level) then
+      if ((i == 0 || br_old.balance < self.vest_level) && br_new.balance > self.vest_level) then
+        puts "WE SEENT IT #{start_date + i + 1}"
         vest_date = start_date + i + 1
         vest_amount = self.vest_level
       end
     end
+    puts "AND IM OUT"
     self.balance_records.where(date: vest_date).last.vest(vest_amount)
+    self.save
     run(vest_date, finish_date)
   end
 

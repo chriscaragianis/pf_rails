@@ -47,6 +47,7 @@ RSpec.describe Scenario, type: :model do
     @scene.run(Date.new(2016,2,3), Date.new(2016,2,20))
     br = @scene.balance_records.select { |bal_rec| bal_rec.date == Date.new(2016, 2, 13) }
     expect(br.last.balance).to eq(50)
+    expect(@scene.balance_records.count).to eq(18)
   end
 
   it "#create_balance_record_list should not create a balance record with bad dates" do

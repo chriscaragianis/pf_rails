@@ -3,7 +3,7 @@
 <ul>
   <% Scenario.all.to_a.each do |sc| %>
     <li class="scenario-list-box" id="<%= 'scene-#{sc.id}' %>">
-      <%= "#{sc.name}, Vest Level: #{sc.vest_level}" %>
+      <%= "#{sc.name}, Vest Level: #{sc.vest_level}, id: #{sc.id}" %>
     </li>
   <% end %>
 

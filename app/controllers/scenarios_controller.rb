@@ -14,9 +14,10 @@ class ScenariosController < ApplicationController
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
     br = BalanceRecord.new(balance: params[:balance], date: start_date)
+    br.accounts = Account.all
     br.scenario_id = @sc.id
     br.save
-    @sc.run(start_date + 1, end_date-1)
+    @sc.run(start_date, end_date)
     @sc.save
   end
 

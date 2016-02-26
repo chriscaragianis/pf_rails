@@ -22,12 +22,12 @@ class BalanceRecord < ActiveRecord::Base
   end
 
   def vest(amount)
+    puts "VESTING Date: #{self.date} Amount: #{amount}"
     leftover = amount
-    ordered_accounts = get_vest_list
     if (amount <= 0) then
       return leftover
     end
-    ordered_accounts.each do |acct|
+    get_vest_list.each do |acct|
       leftover = acct.pay(amount)
       self.balance -= amount - leftover
       acct.save
