@@ -1,13 +1,14 @@
 require 'rails_helper'
+require 'balance_record'
 
 RSpec.describe Scenario, type: :model do
   before(:each) do
     DatabaseCleaner.start
     @scene = create(:scenario, vest_level: 1050)
-    @bal_rec = create(:balance_record, date: Date.new(2016,2,3), balance: 1000)
+    @bal_rec = BalanceRecord.new(date: Date.new(2016,2,3), balance: 1000)
     @car = create(:account, acct_name: "CAR", carry_balance: true, rate: 0.06, balance: -5500, day: 5, fixed_amount: 300)
     @pay = create(:account, acct_name: "PAY", balance: 0,  weekly: true, week_period: 1, week_offset: 0, day: 5, fixed_amount: -200)
-    @bal_rec.update(accounts:  [@pay, @car])
+    @bal_rec.accounts = [@pay, @car]
   end
 
   after(:each) do
@@ -36,10 +37,12 @@ RSpec.describe Scenario, type: :model do
   it "#run should produce a correct single day" do
     @scene.balance_records << @bal_rec
     @scene.run(Date.new(2016,2,3), Date.new(2016,2,4))
+
+    br = @scene.balance_records.select {|brec| brec.date == Date.new(2016,2,4)}.last
     expect(@scene.balance_records.last.date).to eq(Date.new(2016,2,4))
     expect(@scene.balance_records.count).to eq(2)
-    expect(@bal_rec.balance).to eq(1000)
-    expect(@scene.balance_records.last.accounts.where(acct_name: "CAR").last.balance).to eq(-5500 - 5500*0.06/365)
+    expect(br.balance).to eq(1000)
+    expect(br.accounts.select {|acct| acct.acct_name == "CAR"}.last.balance).to  eq(-5500 - 5500*0.06/365)
   end
 
   it "#run should vest when appropriate" do
@@ -48,34 +51,6 @@ RSpec.describe Scenario, type: :model do
     br = @scene.balance_records.select { |bal_rec| bal_rec.date == Date.new(2016, 2, 13) }
     expect(br.last.balance).to eq(50)
     expect(@scene.balance_records.count).to eq(18)
-  end
-
-  it "#create_balance_record_list should not create a balance record with bad dates" do
-    sc = create(:scenario)
-    sc.create_balance_record_list(Date.today, Date.today - 1)
-    expect(sc.balance_records.count).to eq(0)
-  end
-
-  it "#create_balance_record_list should delete any preexisting \
-      balance_records within the given range" do
-    @scene.balance_records << create(:balance_record, scenario_id: @scene.id, date: Date.today)
-    @scene.balance_records << create(:balance_record, scenario_id: @scene.id,date: Date.today - 1)
-    @scene.balance_records << create(:balance_record, scenario_id: @scene.id,date: Date.today + 1)
-    @scene.save
-    @scene.create_balance_record_list(Date.today, Date.today + 1)
-    expect(@scene.balance_records.count).to eq(3)
-  end
-
-  it "#create_balance_record_list creates the right number of balance records" do
-    sc = create(:scenario)
-    sc.create_balance_record_list(Date.today, Date.today + 5)
-    expect(sc.balance_records.count).to eq(6)
-  end
-
-  it "#create_balance_records_list give the balance records the correct dates" do
-    sc = create(:scenario)
-    sc.create_balance_record_list(Date.today, Date.today + 5)
-    sc.balance_records.each_with_index { |br, i| expect(br.date).to eq(Date.today + i) }
   end
 
 end

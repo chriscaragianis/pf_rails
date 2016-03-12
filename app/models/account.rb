@@ -68,7 +68,7 @@ class Account < ActiveRecord::Base
       if (self.balance.abs < self.fixed_amount) then
         self.balance.abs
       else
-        [self.min_rate * self.balance, self.fixed_amount].max
+        [self.min_rate * balance, self.fixed_amount].max
       end
     else
       self.fixed_amount

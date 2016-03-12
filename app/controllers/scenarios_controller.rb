@@ -1,3 +1,5 @@
+require 'json'
+
 class ScenariosController < ApplicationController
   include ApplicationHelper
   def new
@@ -10,15 +12,19 @@ class ScenariosController < ApplicationController
 
   def run_scenario
     @sc = Scenario.last
-    @sc.balance_records.delete_all
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
-    br = BalanceRecord.new(balance: params[:balance], date: start_date)
+    br = BalanceRecord.new(date: start_date, balance: params[:balance].to_d)
     br.accounts = Account.all
-    br.scenario_id = @sc.id
-    br.save
+    @sc.balance_records = [br]
+    puts br
     @sc.run(start_date, end_date)
     @sc.save
+    points = []
+    @sc.balance_records.each_with_index do |rec, index|
+      points << [index, rec.balance]
+    end
+    File.write('public/point_file.json', JSON.generate(points))
   end
 
   private

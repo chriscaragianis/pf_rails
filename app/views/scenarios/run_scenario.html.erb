@@ -1,6 +1,8 @@
 <h1>Your Results</h1>
 
-<table class="results">
+
+
+<!--<table class="results">
   <thead>
     <tr>
       <th>Date</th>
@@ -12,10 +14,10 @@
     </tr>
   </thead>
   <tbody>
-    <% Scenario.find(16).balance_records.all.to_a.each do |br| %>
+    <% @sc.balance_records.each do |br| %>
       <tr>
         <td><%= br.date %></td>
-        <td><%= br.balance%></td>
+        <td><%= br.accounts[0].balance%></td>
         <td><%= br.balance%></td>
         <td><%= br.balance%></td>
       </tr>
