@@ -1,6 +1,30 @@
 <h1>Your Results</h1>
+<script type="text/javascript" src="assets/jquery.flot.js"></script>
+<script type="text/javascript">
 
+  $('.sidebar').hide()
+  $(document).ready(function() {
+  $(function() {
+    
+    var bals = <%= "#{@bal_points.to_s}" %>
+    <% @acct_points.each_with_index do |acct, index| %>
+      var acct_<%= index %> = <%= acct %>
+    <% end %>
+    $.plot("#placeholder", [bals,
+    <% @acct_points.length.times do |i| %>
+      acct_<%= i %>,
+    <% end %>
+    ]);
 
+    // Add the Flot version string to the footer
+
+    $("#footer").prepend("Flot " + $.plot.version + " &ndash; ");
+  });
+});
+  </script>
+<div class="demo-container">
+  <div id="placeholder" class="demo-placeholder" style="width:80%;height:70vh;"></div>
+</div>
 
 <!--<table class="results">
   <thead>

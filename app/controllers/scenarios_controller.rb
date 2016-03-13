@@ -17,14 +17,18 @@ class ScenariosController < ApplicationController
     br = BalanceRecord.new(date: start_date, balance: params[:balance].to_d)
     br.accounts = Account.all
     @sc.balance_records = [br]
-    puts br
     @sc.run(start_date, end_date)
     @sc.save
-    points = []
+    cb_accts = @sc.balance_records[0].accounts.select {|acct| acct.carry_balance == true}
+    @bal_points = []
+    @acct_points = []
+    cb_accts.size.times { @acct_points << [] }
     @sc.balance_records.each_with_index do |rec, index|
-      points << [index, rec.balance]
+      @bal_points << [index, rec.balance.to_f]
+      rec.accounts.select {|a| a.carry_balance }.each_with_index do |acct, index_2|
+        @acct_points[index_2] << [index, acct.balance.to_f]
+      end
     end
-    File.write('public/point_file.json', JSON.generate(points))
   end
 
   private
