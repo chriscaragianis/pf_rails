@@ -14,8 +14,9 @@ Rails.application.routes.draw do
   root 'welcome#index'
   get 'welcome/setup' => 'welcome#setup'
 
-  resource :scenarios
-  resource :balance_records
+  resources :users
+  resources :scenarios
+  resources :balance_records
   get '/results' => 'scenarios#run_scenario'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
@@ -25,7 +26,7 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resource :accounts
+  resources :accounts
     get 'accounts/index' => 'accounts#index'
   # Example resource route with options:
   #   resources :products do
