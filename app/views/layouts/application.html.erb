@@ -14,6 +14,24 @@
         <li><%= link_to 'New Account', '/accounts/new' %> </li>
         <li><%= link_to 'Setup Scenario', '/scenarios/new' %> </li>
         <li><%= link_to 'Run Scenario', '/balance_records/new' %></li>
+        <% if logged_in? %>
+          <li><%= link_to "Users", '#' %></li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+              Account <b class="caret"></b>
+            </a>
+            <ul class="dropdown-menu">
+              <li><%= link_to "Profile", current_user %></li>
+              <li><%= link_to "Settings", '#' %></li>
+              <li class="divider"></li>
+              <li>
+                <%= link_to "Log out", logout_path, method: "delete" %>
+              </li>
+            </ul>
+          </li>
+        <% else %>
+          <li><%= link_to "Log in", login_path %></li>
+        <% end %>
       </ul>
     </div>
   </nav>
@@ -22,15 +40,19 @@
   <% end %>
   <div class="row">
     <div class="col-md-3 sidebar">
-      <ul id="account_list">
-        <% Account.all.to_a.each do |acct| %>
-          <li class="acct_box" id="#{acct.id}">
-            <%= acct.acct_name %></br>
-            Balance: <%= acct.balance %></br>
-            Vest Priority: <%= acct.vest_priority %>
-          </li>
+      <% if logged_in? %>
+        <ul id="account_list">
+          <% Account.all.to_a.each do |acct| %>
+            <% if acct.user_id == current_user.id %>
+              <li class="acct_box" id="#{acct.id}">
+              <%= acct.acct_name %></br>
+              Balance: <%= acct.balance %></br>
+              Vest Priority: <%= acct.vest_priority %>
+            </li>
+          <% end %>
         <% end %>
-    </ul>
+      </ul>
+    <% end %>
   </div>
   <div class="col-md-6 col-offset-3">
     <%= yield %>

@@ -12,6 +12,7 @@ class AccountsController < ApplicationController
 
   def create
     acct = Account.new(account_params)
+    acct.user_id = current_user.id
     acct.save
     render "accounts/new"
   end
