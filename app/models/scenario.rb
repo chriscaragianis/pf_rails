@@ -5,6 +5,7 @@ include ScenariosHelper
 include Comparable
   attr_accessor :balance_records
   has_many :accounts
+  belongs_to :user
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :vest_level, presence: true
@@ -19,7 +20,12 @@ include Comparable
 
   def set_up_br(date)
     br = BalanceRecord.new
-    self.accounts.to_a.each {|acct| br.accounts[acct.id] = acct }
+    Accounts.to_a.each do |acct| 
+      if acct.user_id == current_user.id
+        br.accounts[acct.id] = acct 
+        debugger
+      end
+    end
     br.balance = self.start_balance
     br.date = date
     @balance_records << br

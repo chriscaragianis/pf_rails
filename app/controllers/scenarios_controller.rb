@@ -7,6 +7,7 @@ class ScenariosController < ApplicationController
 
   def create
     scene = Scenario.new(scenario_params)
+    scene.user_id = current_user.id
     scene.save
   end
 
