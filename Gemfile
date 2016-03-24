@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 
-gem 'rails_12factor', group: :production
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.3'
 gem 'bootstrap-sass', '3.2.0.0'
@@ -60,4 +59,7 @@ group :development, :test do
   gem 'nyan-cat-formatter'
 end
 
+group :production do
+  gem 'rails_12factor', group: :production
+end
 ruby "2.2.0"
