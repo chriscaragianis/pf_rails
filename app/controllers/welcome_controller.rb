@@ -3,7 +3,6 @@ class WelcomeController < ApplicationController
   end
 
   def setup
-    Account.delete_all
     render "accounts/new"
   end
 end
