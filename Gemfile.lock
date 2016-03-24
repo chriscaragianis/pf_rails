@@ -112,6 +112,7 @@ GEM
       mini_portile2 (~> 2.0.0.rc2)
     nyan-cat-formatter (0.11)
       rspec (>= 2.99, >= 2.14.2, < 4)
+    pg (0.18.2)
     rack (1.6.4)
     rack-test (0.6.3)
       rack (>= 1.0)
@@ -215,6 +216,7 @@ DEPENDENCIES
   jbuilder (~> 2.0)
   jquery-rails
   nyan-cat-formatter
+  pg
   rails (= 4.2.3)
   rspec-core (~> 3.4.1)
   rspec-rails
