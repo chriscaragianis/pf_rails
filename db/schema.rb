@@ -23,11 +23,10 @@ ActiveRecord::Schema.define(version: 20160323214559) do
     t.integer  "week_offset"
     t.integer  "week_period"
     t.integer  "day"
-    t.datetime "created_at",        null: false
-    t.datetime "updated_at",        null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
     t.float    "fixed_amount"
     t.boolean  "carry_balance"
-    t.integer  "balance_record_id"
     t.integer  "vest_priority"
     t.integer  "scenario_id"
     t.integer  "user_id"
