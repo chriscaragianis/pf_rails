@@ -5,16 +5,27 @@ class AccountsController < ApplicationController
   end
 
   def new
+    if !logged_in? then
+      flash[:error] = "You must be logged in!"
+      redirect_to new_user_path
+    end
   end
 
   def show
   end
 
   def create
-    acct = Account.new(account_params)
+    p = account_params
+    done = p.delete("done_with_accounts")
+    acct = Account.new(p)
     acct.user_id = current_user.id
-    acct.save
-    render "accounts/new"
+    if acct.save then
+      flash[:success] = "Success!"
+      done ? redirect_to("/users/#{current_user.id}") : redirect_to("/accounts/new")
+    else
+      flash[:error] = "An error occurred, please try again"
+      render "accounts/new"
+    end
   end
 
   private
@@ -31,7 +42,8 @@ class AccountsController < ApplicationController
         :carry_balance,
         :week_period,
         :week_offset,
-        :vest_priority
+        :vest_priority,
+        :done_with_accounts
       )
     end
 end

@@ -1,7 +1,4 @@
 <h1> New Account </h1>
-  <% if !logged_in? %>
-    You must be logged in!
-  <% else %>
     <div class="col-md-6">
       <%= form_for :account, url: accounts_path do |f| %>
         <p>
@@ -59,10 +56,13 @@
           <%= f.text_field :vest_priority, class: 'form-control' %>
         </p>
 
+        <p>
+          <%= f.label :done_with_accounts %><br>
+          <%= f.check_box :done_with_accounts, class: 'form-control' %>
+        </p>
 
         <p>
           <%= f.submit %>
         </p>
-      <% end %>
     </div>
   <% end %>

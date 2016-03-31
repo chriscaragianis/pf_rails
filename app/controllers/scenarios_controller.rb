@@ -3,12 +3,22 @@ require 'json'
 class ScenariosController < ApplicationController
   include ApplicationHelper
   def new
+    if !logged_in? then
+      flash[:error] = "You must be signed in"
+      redirect_to "/login"
+    end
   end
 
   def create
     scene = Scenario.new(scenario_params)
     scene.user_id = current_user.id
-    scene.save
+    if scene.save then
+      flash[:success] = "Success!"
+      redirect_to "/users/#{current_user.id}"
+    else
+      flash[:error] = "An error occurred, please try again"
+      redirect_to "/scenarios/new"
+    end
   end
 
   def run_scenario
