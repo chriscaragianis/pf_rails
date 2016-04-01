@@ -3,7 +3,7 @@ Feature: Scenario creation
   Scenario: Visitor visits scenario/new
     Given user not logged in
     And user visits /scenarios/new
-    Then flash error "You must be signed in"
+    Then flash error "You must be logged in!"
     And sign_up form is displayed
 
   Scenario: User creates an scenario with bad info

@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   # See how all your routes lay out with "rake routes".
 
   # You can have the root of your site routed with "root"
+  get "dashboard" => 'users#show'
   root 'welcome#index'
   get 'welcome/setup' => 'welcome#setup'
   get    'signup'  => 'users#new' 

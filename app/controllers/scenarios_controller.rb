@@ -4,7 +4,7 @@ class ScenariosController < ApplicationController
   include ApplicationHelper
   def new
     if !logged_in? then
-      flash[:error] = "You must be signed in"
+      flash[:error] = "You must be logged in!"
       redirect_to "/login"
     end
   end

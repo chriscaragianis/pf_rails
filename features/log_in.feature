@@ -1,29 +1,28 @@
 Feature: Log in to an account
 
   Scenario: Logged in user visits log in page
-    Given logged in user
-    When user visits log_in
+    Given user logged in
+    When user visits login
     Then dashboard is displayed
 
   Scenario: Visitor visits log in page
-    Given no logged in user
-    When user visits log_in
+    Given user not logged in
+    When user visits /login
     Then log_in form is displayed
 
   Scenario: User logs in with good info
-    Given user visits log_in
-    And user not logged in
+    Given user not logged in
+    And user visits /login
     And log_in form has good info
-    When user submits
+    When user submits Log in
     Then flash success "Logged in"
-    And session is created
     And dashboard is displayed
+    And session exists
 
   Scenario: User logs in with bad info
-    Given user visits log_in 
-    And user not logged in
+    Given user not logged in
+    And user visits /login
     And log_in form has bad info
-    When user submits
-    Then session is not created
-    And flash error "An error occurred.  Please try again"
+    When user submits Log in
+    Then flash error 'Invalid email/password combination'
     And log_in form is displayed
