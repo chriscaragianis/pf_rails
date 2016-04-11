@@ -1,0 +1,7 @@
+attach accounts to scenarios
+
+set vest priority for accounts, vest in that order on run.
+
+delete accounts and scenarios
+
+

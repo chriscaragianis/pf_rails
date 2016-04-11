@@ -35,11 +35,12 @@ Then(/^account is not created$/) do
 end
 
 Then(/^new_account form is displayed$/) do
-  expect(page).to have_content("New Account")
+  expect(page).to have_field("Acct name")
 end
 
 Given(/^new_account form has good info$/) do
   fill_in "Day", :with => "3"
+  fill_in "Fixed amount", :with => "3"
   fill_in "Min rate", :with => "0.1"
   fill_in "Acct name", :with => "Account Feature"
   fill_in "Vest priority", :with => "1"

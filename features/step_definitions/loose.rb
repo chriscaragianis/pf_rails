@@ -11,6 +11,7 @@ And(/^user has an account$/) do
                      vest_priority: 1,
                      day: 5,
                      acct_name: "Account Name",
+                     fixed_amount: 3,
                      user_id: @user.id)
   acct.save
 end

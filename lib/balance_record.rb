@@ -32,7 +32,6 @@ class BalanceRecord
   end
 
   def vest(amount)
-    puts "VESTING Date: #{self.date} Amount: #{amount}"
     leftover = amount
     if (amount <= 0) then
       return leftover

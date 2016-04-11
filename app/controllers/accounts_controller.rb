@@ -21,7 +21,7 @@ class AccountsController < ApplicationController
     acct.user_id = current_user.id
     if acct.save then
       flash[:success] = "Success!"
-      done ? redirect_to("/users/#{current_user.id}") : redirect_to("/accounts/new")
+      done == "1" ? redirect_to("/users/#{current_user.id}") : redirect_to("/accounts/new")
     else
       flash[:error] = "An error occurred, please try again"
       render "accounts/new"

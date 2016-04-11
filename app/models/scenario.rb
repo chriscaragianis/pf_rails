@@ -4,8 +4,9 @@ class Scenario < ActiveRecord::Base
 include ScenariosHelper
 include Comparable
   attr_accessor :balance_records
-  has_many :accounts
   belongs_to :user
+  has_many :scene_accounts
+  has_many :accounts, :through => :scene_accounts
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :vest_level, presence: true
@@ -38,7 +39,6 @@ include Comparable
     vest_date = finish_date
     vest_amount = 0
     if (start_date >= finish_date) then
-      puts @balance_records.each.map { |br| "#{br.date}, #{br.balance}" }
       return
     end
     (finish_date - start_date).to_i.times do |i|

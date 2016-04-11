@@ -14,6 +14,13 @@
           <%= f.text_field :vest_level, class: 'form-control' %>
         </p>
 
+        <h3> Include Accounts </h3>
+        <% current_user.accounts.each do |a| %>
+          <p>
+            <%= f.label "#{a.acct_name}" %></br>
+            <%= f.check_box "#{a.acct_name}", class: 'form-control' %>
+          </p>
+        <% end %>
         <p>
           <%= f.submit %>
         </p>

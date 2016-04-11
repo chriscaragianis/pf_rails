@@ -1,8 +1,17 @@
 class BalanceRecordsController < ApplicationController
   include ApplicationHelper
   def new
+    if current_user.nil? then
+      flash[:error] = "You must be logged in!"
+      redirect_to "/login"
+      return
+    end
     if (Scenario.count > 0) then
-      @scene = Scenario.last
+      sc = Scenario.all.select{|s| s.user_id == current_user[:id]}
+      @scenario_options_list = []
+      sc.each do |s|
+        @scenario_options_list << [s.name, s.id]
+      end
     else
       flash.alert = "You must define a Scenario"
       redirect_to '/scenarios/new'
@@ -16,7 +25,7 @@ class BalanceRecordsController < ApplicationController
   end
 
   private
-    def balance_record_params 
+    def balance_record_params
       params.require(:balance_record).permit(
         :balance,
         :date

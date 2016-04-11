@@ -22,11 +22,11 @@ class ScenariosController < ApplicationController
   end
 
   def run_scenario
-    @sc = Scenario.last
+    @sc = Scenario.find_by(id: params[:scenario_choice])
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
     br = BalanceRecord.new(date: start_date, balance: params[:balance].to_d)
-    br.accounts = Account.all
+    br.accounts = Account.all.select {|acct| acct.user_id == current_user[:id]}
     @sc.balance_records = [br]
     @sc.run(start_date, end_date)
     @sc.save

@@ -10,9 +10,11 @@ end
 
 class Account < ActiveRecord::Base
   belongs_to :user
+  has_many :scene_accounts
+  has_many :scencarios, :through => :scene_accounts
   validates :day, presence: true
-  validates :vest_priority, presence: true
   validates :min_rate, presence: true
+  validates :fixed_amount, presence: true
 
   validates :week_offset, presence: true, if: :weekly?
   validates :week_period, presence: true, if: :weekly?
@@ -20,6 +22,7 @@ class Account < ActiveRecord::Base
 
   validates :balance, presence: true, if: :carry_balance?
   validates :rate, presence: true, if: :carry_balance?
+  validates :vest_priority, presence: true, if: :carry_balance?
 
   def to_s
     return "Name: #{self.acct_name}, Balance: #{self.balance}"

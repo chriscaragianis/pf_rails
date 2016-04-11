@@ -29,9 +29,11 @@ RSpec.describe Account, type: :model do
     expect(@acct).to be_valid
   end
 
-  it "has a vest_priority" do
-    @acct.update(vest_priority: nil)
+  it "has a vest_priority if carry_balance" do
+    @acct.update(vest_priority: nil, carry_balance: true)
     expect(@acct).not_to be_valid
+    @acct.update(vest_priority: nil, carry_balance: false)
+    expect(@acct).to be_valid
   end
 
   it "has a day" do
@@ -41,6 +43,11 @@ RSpec.describe Account, type: :model do
 
   it "has a min_rate" do
     @acct.update(min_rate: nil)
+    expect(@acct).not_to be_valid
+  end
+
+  it "has a fixed_amount" do
+    @acct.update(fixed_amount: nil)
     expect(@acct).not_to be_valid
   end
 

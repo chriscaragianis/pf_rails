@@ -3,6 +3,7 @@ FactoryGirl.define do
     acct_name "MyString"
     rate 1.5
     min_rate 1.5
+    fixed_amount 0
     balance 1.5
     day 1
     weekly false
