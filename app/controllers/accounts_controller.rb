@@ -12,6 +12,11 @@ class AccountsController < ApplicationController
   end
 
   def show
+    @acct = Account.find(params[:id])
+    if @acct.user_id != current_user.id then
+      flash[:danger] = "You are not permitted to view this account."
+      redirect_to "/dashboard"
+    end
   end
 
   def create
