@@ -8,7 +8,20 @@ class ScenariosController < ApplicationController
       redirect_to "/login"
     end
   end
-
+  
+  def show
+    @sc = Scenario.find(params[:id])
+    if @sc.user_id != current_user.id then
+      flash[:danger] = "You are not permitted to view this scenario."
+      redirect_to "/dashboard"
+    end
+  end
+  
+  def destroy
+    Scenario.find(params[:id]).destroy
+    redirect_to "/dashboard"
+  end
+  
   def create
     scene = Scenario.new(name: scenario_params[:name],
                          vest_level: scenario_params[:vest_level])

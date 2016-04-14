@@ -3,6 +3,11 @@ class AccountsController < ApplicationController
   def index
     @accounts = Account.all
   end
+  
+  def destroy
+    Account.find(params[:id]).destroy
+    redirect_to "/dashboard"
+  end
 
   def new
     if !logged_in? then

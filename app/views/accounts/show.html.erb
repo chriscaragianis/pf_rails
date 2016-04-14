@@ -1,1 +1,7 @@
-<h1><%= @acct.acct_name %></h1>
+<h1>
+  <%= @acct.acct_name %>
+</h1>
+
+<p>
+    <%= link_to "delete", @acct, method: :delete %>
+</p>
