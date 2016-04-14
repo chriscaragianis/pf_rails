@@ -11,7 +11,7 @@ include Comparable
   validates :name, presence: true, length: { minimum: 2 }
   validates :vest_level, presence: true
 
-  after_initialize do 
+  after_initialize do
     @balance_records = []
   end
 
@@ -21,9 +21,9 @@ include Comparable
 
   def set_up_br(date)
     br = BalanceRecord.new
-    Accounts.to_a.each do |acct| 
+    Accounts.to_a.each do |acct|
       if acct.user_id == current_user.id
-        br.accounts[acct.id] = acct 
+        br.accounts[acct.id] = acct
         debugger
       end
     end

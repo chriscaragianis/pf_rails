@@ -11,7 +11,7 @@ end
 class Account < ActiveRecord::Base
   belongs_to :user
   has_many :scene_accounts
-  has_many :scencarios, :through => :scene_accounts
+  has_many :scenarios, :through => :scene_accounts
   validates :day, presence: true
   validates :min_rate, presence: true
   validates :fixed_amount, presence: true

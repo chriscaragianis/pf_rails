@@ -10,9 +10,19 @@ class ScenariosController < ApplicationController
   end
 
   def create
-    scene = Scenario.new(scenario_params)
+    scene = Scenario.new(name: scenario_params[:name],
+                         vest_level: scenario_params[:vest_level])
     scene.user_id = current_user.id
     if scene.save then
+      acc_list = scenario_params
+      acc_list.delete(:name)
+      acc_list.delete(:vest_level)
+      acc_list.each do |name, id|
+        if id == '1' then 
+          SceneAccount.create(scenario_id: scene.id,
+                              account_id: Account.find_by(acct_name: name).id)
+        end
+      end
       flash[:success] = "Success!"
       redirect_to "/users/#{current_user.id}"
     else
@@ -46,7 +56,8 @@ class ScenariosController < ApplicationController
     def scenario_params
       params.require(:scenario).permit(
         :name,
-        :vest_level
+        :vest_level,
+        *Account.select {|a| a.user_id == current_user.id}.map {|a| a.acct_name}
       )
     end
 end
