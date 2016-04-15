@@ -1,9 +1,9 @@
-<h1> Setup Scenario </h1>
+<h1> Setup Plan </h1>
   <% if !logged_in? %>
     You must be logged in!
   <% else %>
     <div class="col-md-6">
-      <%= form_for :scenario, url: scenarios_path do |f| %>
+      <%= form_for :plan, url: plans_path do |f| %>
         <p>
           <%= f.label :name %><br>
           <%= f.text_field :name, class: 'form-control' %>

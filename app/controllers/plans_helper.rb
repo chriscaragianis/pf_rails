@@ -1,4 +1,4 @@
-module ScenariosHelper
+module PlansHelper
   def day_calc bal_rec
     balance = bal_rec.balance
     br = BalanceRecord.new(date: bal_rec.date + 1, balance: balance)

@@ -1,12 +1,12 @@
 require 'balance_record'
 
-class Scenario < ActiveRecord::Base
-include ScenariosHelper
+class Plan < ActiveRecord::Base
+include PlansHelper
 include Comparable
   attr_accessor :balance_records
   belongs_to :user
-  has_many :scene_accounts
-  has_many :accounts, :through => :scene_accounts
+  has_many :plan_accounts
+  has_many :accounts, :through => :plan_accounts
 
   validates :name, presence: true, length: { minimum: 2 }
   validates :vest_level, presence: true

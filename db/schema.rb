@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160407191003) do
+ActiveRecord::Schema.define(version: 20160415173432) do
 
   create_table "accounts", force: :cascade do |t|
     t.float    "rate"
@@ -32,7 +32,17 @@ ActiveRecord::Schema.define(version: 20160407191003) do
     t.integer  "user_id"
   end
 
-  create_table "scenarios", force: :cascade do |t|
+  create_table "plan_accounts", force: :cascade do |t|
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer  "account_id"
+    t.integer  "plan_id"
+  end
+
+  add_index "plan_accounts", ["account_id"], name: "index_plan_accounts_on_account_id"
+  add_index "plan_accounts", ["plan_id"], name: "index_plan_accounts_on_plan_id"
+
+  create_table "plans", force: :cascade do |t|
     t.string   "name"
     t.float    "vest_level"
     t.datetime "created_at",    null: false
@@ -40,16 +50,6 @@ ActiveRecord::Schema.define(version: 20160407191003) do
     t.float    "start_balance"
     t.integer  "user_id"
   end
-
-  create_table "scene_accounts", force: :cascade do |t|
-    t.datetime "created_at",  null: false
-    t.datetime "updated_at",  null: false
-    t.integer  "account_id"
-    t.integer  "scenario_id"
-  end
-
-  add_index "scene_accounts", ["account_id"], name: "index_scene_accounts_on_account_id"
-  add_index "scene_accounts", ["scenario_id"], name: "index_scene_accounts_on_scenario_id"
 
   create_table "users", force: :cascade do |t|
     t.string   "name"

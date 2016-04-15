@@ -3,7 +3,7 @@ Given(/^new_scenario form has bad info$/) do
 end
 
 Given(/^new_scenario form has good info$/) do
-  fill_in "Name", :with => "Scene"
+  fill_in "Name", :with => "Scenario"
   fill_in "Vest level", :with => "100"
 end
 
@@ -16,6 +16,6 @@ Then(/^new_scenario form is displayed$/) do
 end
 
 Then(/^scenario is created$/) do
-  expect(Scenario.find_by(name: "Scene")).to be_truthy 
+  expect(Scenario.find_by(name: "Scenario")).to be_truthy 
 end
 

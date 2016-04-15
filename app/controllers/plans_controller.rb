@@ -1,6 +1,6 @@
 require 'json'
 
-class ScenariosController < ApplicationController
+class PlansController < ApplicationController
   include ApplicationHelper
   def new
     if !logged_in? then
@@ -10,29 +10,29 @@ class ScenariosController < ApplicationController
   end
   
   def show
-    @sc = Scenario.find(params[:id])
+    @sc = Plan.find(params[:id])
     if @sc.user_id != current_user.id then
-      flash[:danger] = "You are not permitted to view this scenario."
+      flash[:danger] = "You are not permitted to view this plan."
       redirect_to "/dashboard"
     end
   end
   
   def destroy
-    Scenario.find(params[:id]).destroy
+    Plan.find(params[:id]).destroy
     redirect_to "/dashboard"
   end
   
   def create
-    scene = Scenario.new(name: scenario_params[:name],
-                         vest_level: scenario_params[:vest_level])
-    scene.user_id = current_user.id
-    if scene.save then
-      acc_list = scenario_params
+    pl = Plan.new(name: plan_params[:name],
+                         vest_level: plan_params[:vest_level])
+    pl.user_id = current_user.id
+    if pl.save then
+      acc_list = plan_params
       acc_list.delete(:name)
       acc_list.delete(:vest_level)
       acc_list.each do |name, id|
         if id == '1' then 
-          SceneAccount.create(scenario_id: scene.id,
+          PlanAccount.create(plan_id: pl.id,
                               account_id: Account.find_by(acct_name: name).id)
         end
       end
@@ -40,12 +40,12 @@ class ScenariosController < ApplicationController
       redirect_to "/users/#{current_user.id}"
     else
       flash[:error] = "An error occurred, please try again"
-      redirect_to "/scenarios/new"
+      redirect_to "/plans/new"
     end
   end
 
-  def run_scenario
-    @sc = Scenario.find_by(id: params[:scenario_choice])
+  def run_plan
+    @sc = Plan.find_by(id: params[:plan_choice])
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
     br = BalanceRecord.new(date: start_date, balance: params[:balance].to_d)
@@ -66,8 +66,8 @@ class ScenariosController < ApplicationController
   end
 
   private
-    def scenario_params
-      params.require(:scenario).permit(
+    def plan_params
+      params.require(:plan).permit(
         :name,
         :vest_level,
         *Account.select {|a| a.user_id == current_user.id}.map {|a| a.acct_name}

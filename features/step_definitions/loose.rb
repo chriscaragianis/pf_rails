@@ -17,7 +17,7 @@ And(/^user has an account$/) do
 end
 
 And(/^user has a scenario$/) do
-  scene = Scenario.new(name: "Scene Name", vest_level: 1, user_id: @user.id)
+  scene = Scenario.new(name: "Scenario Name", vest_level: 1, user_id: @user.id)
   if !scene.save then
     puts "EMERGENCYEEEEE"
   end
@@ -48,7 +48,7 @@ Then(/^accounts are displayed$/) do
 end
 
 Then(/^scenarios are displayed$/) do
-  expect(page).to have_content("Scene Name")
+  expect(page).to have_content("Scenario Name")
 end
 
 Then(/^new_account link is displayed$/) do

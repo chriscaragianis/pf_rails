@@ -10,8 +10,8 @@ end
 
 class Account < ActiveRecord::Base
   belongs_to :user
-  has_many :scene_accounts
-  has_many :scenarios, :through => :scene_accounts
+  has_many :pl_accounts
+  has_many :plans, :through => :pl_accounts
   validates :day, presence: true
   validates :min_rate, presence: true
   validates :fixed_amount, presence: true

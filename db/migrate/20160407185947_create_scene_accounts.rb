@@ -1,4 +1,4 @@
-class CreateSceneAccounts < ActiveRecord::Migration
+class CreatePlanAccounts < ActiveRecord::Migration
   def change
     create_table :scene_accounts do |t|
 

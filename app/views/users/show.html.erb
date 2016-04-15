@@ -8,10 +8,10 @@
       <h1>
         Your Accounts
       </h1>
-      <h1> Your Scenarios </h1>
-      <% Scenario.all.to_a.each do |sc| %>
+      <h1> Your Plans </h1>
+      <% Plan.all.to_a.each do |sc| %>
         <% if sc.user_id == current_user.id %>
-          <li class="scenario-list-box" id="<%= 'scene-#{sc.id}' %>">
+          <li class="plan-list-box" id="<%= 'pl-#{sc.id}' %>">
             <%= "#{sc.name}, Vest Level: #{sc.vest_level}, id: #{sc.id}" %>
           </li>
         <% end %>

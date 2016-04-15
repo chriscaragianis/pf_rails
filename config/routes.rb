@@ -3,9 +3,9 @@ Rails.application.routes.draw do
 
   get 'users/new'
 
-  get 'scenario/new'
+  get 'plan/new'
 
-  get 'scenario/create'
+  get 'plan/create'
 
   get 'welcome/index'
 
@@ -22,9 +22,9 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-  resources :scenarios
+  resources :plans
   resources :balance_records
-  get '/results' => 'scenarios#run_scenario'
+  get '/results' => 'plans#run_plan'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

@@ -1,10 +1,10 @@
 require 'rails_helper'
 require 'balance_record'
 
-RSpec.describe Scenario, type: :model do
+RSpec.describe Plan, type: :model do
   before(:each) do
     DatabaseCleaner.start
-    @scene = create(:scenario, vest_level: 1050)
+    @scene = create(:plan, vest_level: 1050)
     @bal_rec = BalanceRecord.new(date: Date.new(2016,2,3), balance: 1000)
     @car = create(:account, acct_name: "CAR", carry_balance: true, rate: 0.06, balance: -5500, day: 5, fixed_amount: 300)
     @pay = create(:account, acct_name: "PAY", balance: 0,  weekly: true, week_period: 1, week_offset: 0, day: 5, fixed_amount: -200)

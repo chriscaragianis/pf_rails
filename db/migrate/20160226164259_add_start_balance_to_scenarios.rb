@@ -1,5 +1,5 @@
-class AddStartBalanceToScenarios < ActiveRecord::Migration
+class AddStartBalanceToPlans < ActiveRecord::Migration
   def change
-    add_column :scenarios, :start_balance, :float
+    add_column :plans, :start_balance, :float
   end
 end

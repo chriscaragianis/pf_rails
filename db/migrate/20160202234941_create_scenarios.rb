@@ -1,6 +1,6 @@
-class CreateScenarios < ActiveRecord::Migration
+class CreatePlans < ActiveRecord::Migration
   def change
-    create_table :scenarios do |t|
+    create_table :plans do |t|
       t.string :name
       t.float :vest_level
 

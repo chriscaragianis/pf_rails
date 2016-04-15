@@ -25,26 +25,3 @@
   <div id="placeholder" class="demo-placeholder" style="width:80%;height:70vh;"></div>
 </div>
 
-<!--<table class="results">
-  <thead>
-    <tr>
-      <th>Date</th>
-      <th>Balance</th>
-      <% Account.all.to_a.each do |acct| %>
-        <th><%= acct.acct_name %></th>
-        <th>Balance</th>
-      <% end %>
-    </tr>
-  </thead>
-  <tbody>
-    <% @sc.balance_records.each do |br| %>
-      <tr>
-        <td><%= br.date %></td>
-        <td><%= br.accounts[0].balance%></td>
-        <td><%= br.balance%></td>
-        <td><%= br.balance%></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
-

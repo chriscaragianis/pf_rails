@@ -6,21 +6,21 @@ class BalanceRecordsController < ApplicationController
       redirect_to "/login"
       return
     end
-    if (Scenario.count > 0) then
-      sc = Scenario.all.select{|s| s.user_id == current_user[:id]}
-      @scenario_options_list = []
+    if (Plan.count > 0) then
+      sc = Plan.all.select{|s| s.user_id == current_user[:id]}
+      @plan_options_list = []
       sc.each do |s|
-        @scenario_options_list << [s.name, s.id]
+        @plan_options_list << [s.name, s.id]
       end
     else
-      flash.alert = "You must define a Scenario"
-      redirect_to '/scenarios/new'
+      flash.alert = "You must define a Plan"
+      redirect_to '/plans/new'
     end
   end
 
   def create
     br = BalanceRecord.new(balance_record_params)
-    br.scenario_id = Scenario.last.id
+    br.plan_id = Plan.last.id
     br.save
   end
 

@@ -1,5 +1,5 @@
 FactoryGirl.define do
-  factory :scene_account do
+  factory :plan_account do
     
   end
 end

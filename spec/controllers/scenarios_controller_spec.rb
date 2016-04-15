@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe ScenariosController, type: :controller do
+RSpec.describe PlansController, type: :controller do
 
 
 end
