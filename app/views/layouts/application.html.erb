@@ -8,34 +8,48 @@
 </head>
 
 <body>
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <ul class="nav navbar-nav">
-        <% if logged_in? %>
-          <li><%= link_to 'New Account', '/accounts/new' %> </li>
-          <li><%= link_to 'Setup Plan', '/plans/new' %> </li>
-          <li><%= link_to 'Run Plan', '/balance_records/new' %></li>
-          <li><%= link_to "Users", '#' %></li>
-          <li class="dropdown">
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Account <b class="caret"></b>
-            </a>
-            <ul class="dropdown-menu">
-              <li><%= link_to "Profile", current_user %></li>
-              <li><%= link_to "Settings", '#' %></li>
-              <li class="divider"></li>
-              <li>
-                <%= link_to "Log out", logout_path, method: "delete" %>
-              </li>
-            </ul>
-          </li>
-        <% else %>
-          <li><%= link_to "Log in", login_path %></li>
-          <li><%= link_to "Sign up", signup_path %></li>
-        <% end %>
-      </ul>
-    </div>
-  </nav>
+  <div class="container-fluid">
+    <ul class="nav-bubbles">
+      <% if logged_in? %>
+        <li>
+          <div class="round-border">
+            <%= link_to 'Accounts', '/accounts/index' %>
+          </div>
+        </li>
+        <li>
+          <div class="round-border">
+            <%= link_to 'Plans', '/plans/index' %>
+           </div>
+        </li>
+        <li>
+          <div class="round-border">
+            <%= link_to 'Dashboard', '/dashboard' %>
+          </div>
+        </li>
+        <li>
+          <div class="round-border">
+            <%= link_to 'Forecast', '/balance_records/new' %>
+          </div>
+        </li>
+        <li class="pull-right">
+          <div class="round-border">
+            <%= link_to 'Sign Out', logout_path, method: "delete" %>
+          </div>
+        </li>
+      <% else %>
+        <li>
+          <div class="round-border">
+            <%= link_to "Log in", login_path %>
+          </div>
+        </li>
+        <li>
+          <div class="round-border">
+            <%= link_to "Sign up", signup_path %>
+          </div>
+        <li>
+      <% end %>
+    </ul>
+  </div>
   <% if flash[:alert] %>
     <div class="flash alert"><%= flash[:alert] %></div>
   <% end %>
@@ -48,23 +62,7 @@
   <% if flash[:success] %>
     <div class="flash success"><%= flash[:success] %></div>
   <% end %>
-  <div class="row">
-    <div class="col-md-3 sidebar">
-      <% if logged_in? %>
-        <ul id="account_list">
-          <% Account.all.to_a.each do |acct| %>
-            <% if acct.user_id == current_user.id %>
-              <li class="acct_box" id="#{acct.id}">
-              <%= acct.acct_name %></br>
-              Balance: <%= acct.balance %></br>
-              Vest Priority: <%= acct.vest_priority %>
-            </li>
-          <% end %>
-        <% end %>
-      </ul>
-    <% end %>
-  </div>
-  <div class="col-md-6 col-offset-3">
+  <div class="">
     <%= yield %>
   </div>
 

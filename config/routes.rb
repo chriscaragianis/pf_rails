@@ -22,7 +22,7 @@ Rails.application.routes.draw do
   delete 'logout'  => 'sessions#destroy'
 
   resources :users
-  resources :plans
+  get 'plans/index' => 'plans#index'
   resources :balance_records
   get '/results' => 'plans#run_plan'
   # Example of regular route:
@@ -33,7 +33,6 @@ Rails.application.routes.draw do
 
   # Example resource route (maps HTTP verbs to controller actions automatically):
   #   resources :products
-  resources :accounts
     get 'accounts/index' => 'accounts#index'
   # Example resource route with options:
   #   resources :products do

@@ -2,13 +2,17 @@ require 'json'
 
 class PlansController < ApplicationController
   include ApplicationHelper
+
+  def index
+  end
+
   def new
     if !logged_in? then
       flash[:error] = "You must be logged in!"
       redirect_to "/login"
     end
   end
-  
+
   def show
     @sc = Plan.find(params[:id])
     if @sc.user_id != current_user.id then
@@ -16,12 +20,12 @@ class PlansController < ApplicationController
       redirect_to "/dashboard"
     end
   end
-  
+
   def destroy
     Plan.find(params[:id]).destroy
     redirect_to "/dashboard"
   end
-  
+
   def create
     pl = Plan.new(name: plan_params[:name],
                          vest_level: plan_params[:vest_level])
