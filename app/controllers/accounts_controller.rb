@@ -26,12 +26,11 @@ class AccountsController < ApplicationController
 
   def create
     p = account_params
-    done = p.delete("done_with_accounts")
     acct = Account.new(p)
     acct.user_id = current_user.id
     if acct.save then
       flash[:success] = "Success!"
-      done == "1" ? redirect_to("/users/#{current_user.id}") : redirect_to("/accounts/new")
+      render "accounts/index"
     else
       flash[:error] = "An error occurred, please try again"
       render "accounts/new"

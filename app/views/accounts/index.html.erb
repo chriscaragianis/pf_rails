@@ -1,3 +1,79 @@
 <div class="big-title fadeInRight animated">
   Accounts
 </div>
+
+<div class="account-gallery">
+  <% current_user.accounts.each do |acct| %>
+    <div class="account-box round-border 
+      <% if acct.carry_balance then %>
+        <%= (acct.fixed_amount < 0) ? 'green' : 'red' %>
+      <% else %>
+         <%= 'white' %> 
+      <%  end %>">
+      <%= acct.acct_name %>
+    </div>
+  <% end %>
+</div>
+    <div class="account-form pull-right">
+      <h1> New Account </h1>
+      <%= form_for :account, url: "/accounts/create" do |f| %>
+        <p>
+          <%= f.label :acct_name %><br>
+          <%= f.text_field :acct_name, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :balance %><br>
+          <%= f.text_field :balance, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :rate %><br>
+          <%= f.text_field :rate, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :min_rate %><br>
+          <%= f.text_field :min_rate, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :day %><br>
+          <%= f.text_field :day, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :weekly %><br>
+          <%= f.check_box :weekly, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :week_offset %><br>
+          <%= f.text_field :week_offset, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :week_period %><br>
+          <%= f.text_field :week_period, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :carry_balance %><br>
+          <%= f.check_box :carry_balance, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :fixed_amount %><br>
+          <%= f.text_field :fixed_amount, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :vest_priority %><br>
+          <%= f.text_field :vest_priority, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.submit %>
+        </p>
+    </div>
+  <% end %>

@@ -11,6 +11,19 @@ div {
 .pull-right {
   float: right;
 }
+
+.account-gallery {
+  max-width: 40%
+}
+
+.account-box {
+  margin-top: 5px;
+}
+
+.account-form {
+  width: 40%;
+}
+
 .round-border {
   display: inline-block;
   background-color:(0,0,0,0);
@@ -22,6 +35,8 @@ div {
 .nav-bubbles {
   list-style: none;
   font-size: 1.5rem;
+  position: fixed;
+  width: 100%;
 }
 
 .nav-bubbles a {
@@ -57,3 +72,16 @@ div {
 .clicker:hover {
   cursor: pointer;
 }
+
+.green {
+  background-color: palegreen;
+}
+
+.red {
+  background-color: salmon;
+}
+
+.white {
+  background-color: ivory;
+}
+

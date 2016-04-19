@@ -8,7 +8,6 @@
 </head>
 
 <body>
-  <div class="container-fluid">
     <ul class="nav-bubbles">
       <% if logged_in? %>
         <li>
@@ -49,7 +48,6 @@
         <li>
       <% end %>
     </ul>
-  </div>
   <% if flash[:alert] %>
     <div class="flash alert"><%= flash[:alert] %></div>
   <% end %>
