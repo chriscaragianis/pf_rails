@@ -1,3 +1,45 @@
 <div class="big-title fadeInRight animated">
   Plans
 </div>
+
+<div class="plans-gallery">
+  <ul>
+    <% Plan.all.to_a.each do |sc| %>
+      <% if sc.user_id == current_user.id %>
+        <li id="<%= 'pl-#{sc.id}' %>">
+          <div class="plan-box white round-border">
+             <%= "#{sc.name}, Vest Level: #{sc.vest_level}, id: #{sc.id}" %>
+          </div>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+</div>
+
+
+  <% if !logged_in? %>
+    You must be logged in!
+  <% else %>
+    <div class="plans-form pull-right">
+      <%= form_for :plan, url: "/plans/create" do |f| %>
+        <p>
+          <%= f.label :name %><br>
+          <%= f.text_field :name, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :vest_level%><br>
+          <%= f.text_field :vest_level, class: 'form-control' %>
+        </p>
+
+        <h3> Include Accounts </h3>
+        <% current_user.accounts.each do |a| %>
+            <%= f.label "#{a.acct_name}" %></br>
+            <%= f.check_box "#{a.acct_name}", class: 'form-control' %>
+        <% end %>
+        <p>
+          <%= f.submit %>
+        </p>
+      <% end %>
+    </div>
+  <% end %>

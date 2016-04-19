@@ -8,20 +8,28 @@ div {
   padding: 1em 1.5em 1em 1.5em; 
 }
 
+ul {
+  list-style: none;
+}
+
 .pull-right {
   float: right;
 }
 
-.account-gallery {
-  max-width: 40%
+.account-gallery, .plans-gallery {
+  max-width: 40%;
+  float: left;
+  margin-top: 6em;
 }
 
-.account-box {
+.account-box, .plan-box {
   margin-top: 5px;
 }
 
-.account-form {
+.account-form, .plans-form {
   width: 40%;
+  margin-top: 6em;
+  margin-right: 10%;
 }
 
 .round-border {
