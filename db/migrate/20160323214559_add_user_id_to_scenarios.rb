@@ -1,5 +1,5 @@
-class AddUserIdToPlans < ActiveRecord::Migration
+class AddUserIdToScenarios< ActiveRecord::Migration
   def change
-    add_column :plans, :user_id, :integer
+    add_column :scenarios, :user_id, :integer
   end
 end
