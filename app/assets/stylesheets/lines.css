@@ -16,12 +16,18 @@ ul {
   float: right;
 }
 
-.account-gallery, .plans-gallery {
+input[type="text"], input[type="date"] {
+   width: 90%;
+}
+.account-gallery, .plans-gallery, .forecast-box {
   max-width: 40%;
   float: left;
   margin-top: 6em;
 }
 
+.demo-container {
+  margin-top: 6em;
+}
 .account-box, .plan-box {
   margin-top: 5px;
 }
