@@ -23,6 +23,7 @@ Rails.application.routes.draw do
 
   resources :users
   get 'plans/index' => 'plans#index'
+  post 'plans/create' => 'plans#create'
   resources :balance_records
   post '/balance_records/new' => 'plans#run_plan'
   # Example of regular route:

@@ -7,22 +7,22 @@
      <%= form_tag("#", method: "post") do %>
         <p>
           <%= label_tag(:plan_choice, "Choose Plan") %>
-          <%= select_tag(:plan_choice, options_for_select(@plan_options_list)) %>
+          <%= select_tag(:plan_choice, options_for_select(@plan_options_list), class: "form-control") %>
         </p>
         <p>
           <%= label_tag(:balance, "Start Balance:") %>
-          <%= text_field_tag(:balance) %>
+          <%= text_field_tag(:balance, "", class: "form-control") %>
         </p>
         <p>
           <%= label_tag(:start_date, "Start Date:") %>
-          <%= date_field_tag(:start_date) %>
+          <%= date_field_tag(:start_date, "", class: "form-control") %>
         </p>
         <p>
           <%= label_tag(:end_date, "End Date:") %>
-          <%= date_field_tag(:end_date) %>
+          <%= date_field_tag(:end_date, "", class: "form-control") %>
         </p>
         <p>
-          <%= submit_tag("Run Plan") %>
+          <%= submit_tag("Run Plan", class: "form-control") %>
         </p>
       <% end %>
     </div>
