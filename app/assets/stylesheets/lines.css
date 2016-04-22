@@ -19,6 +19,10 @@ ul {
 input[type="text"], input[type="date"] {
    width: 90%;
 }
+
+#placeholder {
+  background-color: aliceblue;
+}
 .account-gallery, .plans-gallery, .forecast-box {
   max-width: 40%;
   float: left;
