@@ -1,4 +1,6 @@
 require 'json'
+require 'date_conversion'
+
 
 class PlansController < ApplicationController
   include ApplicationHelper
@@ -57,16 +59,26 @@ class PlansController < ApplicationController
     @sc.balance_records = [br]
     @sc.run(start_date, end_date)
     @sc.save
+    data = Hash.new
+    data["accounts"] = Hash.new
     cb_accts = @sc.balance_records[0].accounts.select {|acct| acct.carry_balance == true}
-    @bal_points = []
-    @acct_points = []
-    cb_accts.size.times { @acct_points << [] }
-    @sc.balance_records.each_with_index do |rec, index|
-      @bal_points << [index, rec.balance.to_f]
-      rec.accounts.select {|a| a.carry_balance }.each_with_index do |acct, index_2|
-        @acct_points[index_2] << [index, acct.balance.to_f]
+    cb_accts.each do |acct|
+      data["accounts"][acct.acct_name] = Hash.new
+      data["accounts"][acct.acct_name]["balances"] = []
+      @sc.balance_records.each do |balrec|
+        data["accounts"][acct.acct_name]["balances"] << [date_conv(balrec.date), balrec.accounts[@sc.accounts.to_a.index(acct)].balance.to_f]
       end
     end
+    data["accounts"]["Balance"] = Hash.new
+    data["accounts"]["Balance"]["balances"] = []
+    @sc.balance_records.each do |rec|
+      data["accounts"]["Balance"]["balances"] << [date_conv(rec.date), rec.balance.to_f]
+    end
+    data_str = JSON.generate(data)
+    File.atomic_write('public/test.json') do |file|
+      file.write(data_str);
+    end
+      
   end
 
   private
