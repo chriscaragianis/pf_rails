@@ -6,7 +6,7 @@ class AccountsController < ApplicationController
 
   def destroy
     Account.find(params[:id]).destroy
-    redirect_to "/dashboard"
+    redirect_to "/accounts/index"
   end
 
   def new

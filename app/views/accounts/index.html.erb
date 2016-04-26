@@ -11,6 +11,12 @@
          <%= 'white' %> 
       <%  end %>">
       <%= acct.acct_name %>
+      <div class="account-details" style="display:none">
+        Rate: <%= acct.rate %><br>
+        Balance: <%= acct.balance %></br>
+        <a href="update">Update</a></br>
+        <%= link_to "delete", "/accounts/delete/#{acct.id}", :method => :delete %>
+      </div>
     </div>
   <% end %>
 </div>

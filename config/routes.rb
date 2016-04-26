@@ -38,6 +38,8 @@ Rails.application.routes.draw do
     get 'accounts/index' => 'accounts#index'
     get 'accounts/new' => 'accounts#new'
     post 'accounts/create' => 'accounts#create'
+    delete 'accounts/delete/:id' => 'accounts#destroy'
+    
   # Example resource route with options:
   #   resources :products do
   #     member do

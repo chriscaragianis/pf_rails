@@ -17,3 +17,9 @@
 //= require jquery.flot.js
 //= require jquery.flot.time.js
 //= require lines.js
+
+$(function() {
+    $('.account-box').on("click", function() {
+        $('.account-details', this).toggle();
+    });
+});

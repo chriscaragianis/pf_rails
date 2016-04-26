@@ -36,4 +36,6 @@ var generateChart = function() {
 };
 
 $('#placeholder').ready(generateChart);
+
+
     
