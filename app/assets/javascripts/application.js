@@ -15,4 +15,5 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require jquery.flot.js
-//= require_tree .
+//= require jquery.flot.time.js
+//= require lines.js

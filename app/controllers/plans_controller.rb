@@ -80,6 +80,10 @@ class PlansController < ApplicationController
     end
       
   end
+  
+  def load_chart 
+    render :file => '/public/test.json'
+  end
 
   private
     def plan_params

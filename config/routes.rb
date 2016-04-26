@@ -14,6 +14,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   get "dashboard" => 'users#show'
+  get "plotdata" => 'plans#load_chart'
   root 'welcome#index'
   get 'welcome/setup' => 'welcome#setup'
   get    'signup'  => 'users#new' 

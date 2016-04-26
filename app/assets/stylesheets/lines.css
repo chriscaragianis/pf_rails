@@ -22,6 +22,8 @@ input[type="text"], input[type="date"] {
 
 #placeholder {
   background-color: aliceblue;
+  width: 800px;
+  height: 600px;
 }
 .account-gallery, .plans-gallery, .forecast-box {
   max-width: 40%;
