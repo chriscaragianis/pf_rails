@@ -52,7 +52,7 @@ include Comparable
       end
     end
     @balance_records.select { |br| br.date ==  vest_date }.last.vest(vest_amount)
-    run(vest_date, finish_date)
+#    run(vest_date, finish_date)
   end
 
 end
