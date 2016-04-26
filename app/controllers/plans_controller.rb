@@ -39,7 +39,7 @@ class PlansController < ApplicationController
       acc_list.each do |name, id|
         if id == '1' then 
           PlanAccount.create(plan_id: pl.id,
-                              account_id: Account.find_by(acct_name: name).id)
+                             account_id: Account.find_by(acct_name: name).id)
         end
       end
       flash[:success] = "Success!"
@@ -76,7 +76,7 @@ class PlansController < ApplicationController
     end
     data_str = JSON.generate(data)
     File.atomic_write('public/test.json') do |file|
-      file.write(data_str);
+      file.write(data_str)
     end
       
   end
@@ -90,7 +90,7 @@ class PlansController < ApplicationController
       params.require(:plan).permit(
         :name,
         :vest_level,
-        *Account.select {|a| a.user_id == current_user.id}.map {|a| a.acct_name}
+        Account.select {|a| a.user_id == current_user.id}.map {|a| a.acct_name}
       )
     end
 end
