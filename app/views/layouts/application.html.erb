@@ -32,20 +32,26 @@
           <% end %>
         </li>
         <li class="pull-right">
-          <div class="round-border">
-            <%= link_to 'Sign Out', logout_path, method: "delete" %>
-          </div>
+          <%= link_to logout_path do %>
+           <div class="round-border">
+              Sign Out
+           </div>
+          <% end %>
         </li>
       <% else %>
         <li>
-          <div class="round-border">
-            <%= link_to "Log in", login_path %>
-          </div>
+          <%= link_to login_path do %>
+              <div class="round-border">
+                Log In
+              </div>
+            <% end %> 
         </li>
         <li>
-          <div class="round-border">
-            <%= link_to "Sign up", signup_path %>
-          </div>
+          <%= link_to signup_path do %>
+              <div class="round-border">
+                Sign Up
+              </div>
+            <% end %> 
         <li>
       <% end %>
     </ul>

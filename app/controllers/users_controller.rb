@@ -3,7 +3,7 @@ class UsersController < ApplicationController
   def new
     @user = User.new
     if !current_user.nil? then
-      redirect_to "/dashboard"
+      redirect_to "accounts/index"
     end
   end
 
@@ -12,7 +12,7 @@ class UsersController < ApplicationController
     if @user.save
       log_in @user
       flash[:success] = "Welcome!"
-      redirect_to @user
+      redirect_to '/accounts/index'
     else
       flash[:error] = "An error occurred.  Please try again"
       render 'new'
