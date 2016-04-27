@@ -43,7 +43,7 @@ class PlansController < ApplicationController
         end
       end
       flash[:success] = "Success!"
-      redirect_to "/users/#{current_user.id}"
+      redirect_to "/plans/index"
     else
       flash[:error] = "An error occurred, please try again"
       redirect_to "/plans/new"
