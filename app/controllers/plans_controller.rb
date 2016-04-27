@@ -52,12 +52,13 @@ class PlansController < ApplicationController
 
   def run_plan
     @sc = Plan.find_by(id: params[:plan_choice])
+    @sc.balance_records = []
     start_date = Date.parse(params[:start_date])
     end_date = Date.parse(params[:end_date])
     br = BalanceRecord.new(date: start_date, balance: params[:balance].to_d)
     br.accounts = @sc.accounts.to_a
     @sc.balance_records = [br]
-    @sc.run(start_date, end_date)
+    @sc.run(start_date, end_date, [])
     @sc.save
     data = Hash.new
     data["accounts"] = Hash.new

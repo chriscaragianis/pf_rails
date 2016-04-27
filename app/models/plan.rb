@@ -32,11 +32,9 @@ include Comparable
     @balance_records << br
   end
 
-  def run(start_date, finish_date)
-    date_stack = []
+  def run(start_date, finish_date, date_stack)
     @balance_records.sort!
     @balance_records.select!{ |br| br.date <= start_date }
-
     vest_date = finish_date
     vest_amount = 0
     if (start_date >= finish_date) then
@@ -51,8 +49,8 @@ include Comparable
         date_stack.push(start_date + i + 1)
         br_new.vest(self.vest_level)
       end
-      if (br_new.balance < 0) then
-        run(date_stack.pop, finish_date)
+      if (br_new.balance < 0 && !date_stack.empty?) then
+        run(date_stack.pop, finish_date, date_stack)
         return
       end 
     end
