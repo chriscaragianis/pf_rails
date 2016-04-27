@@ -32,7 +32,7 @@
           <% end %>
         </li>
         <li class="pull-right">
-          <%= link_to logout_path do %>
+          <%= link_to logout_path, method: "delete" do %>
            <div class="round-border">
               Sign Out
            </div>
@@ -55,19 +55,7 @@
         <li>
       <% end %>
     </ul>
-  <% if flash[:alert] %>
-    <div class="flash alert"><%= flash[:alert] %></div>
-  <% end %>
-  <% if flash[:error] %>
-    <div class="flash error"><%= flash[:error] %></div>
-  <% end %>
-  <% if flash[:danger] %>
-    <div class="flash danger"><%= flash[:danger] %></div>
-  <% end %>
-  <% if flash[:success] %>
-    <div class="flash success"><%= flash[:success] %></div>
-  <% end %>
-  <div class="">
+  
     <%= yield %>
   </div>
 
