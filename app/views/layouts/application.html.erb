@@ -11,19 +11,25 @@
     <ul class="nav-bubbles">
       <% if logged_in? %>
         <li>
-          <div class="round-border">
-            <%= link_to 'Accounts', '/accounts/index' %>
-          </div>
+            <%= link_to '/accounts/index' do %>
+              <div class="round-border">
+                Accounts
+              </div>
+            <% end %> 
         </li>
         <li>
-          <div class="round-border">
-            <%= link_to 'Plans', '/plans/index' %>
+          <%= link_to '/plans/index' do %>
+           <div class="round-border">
+              Plans
            </div>
+          <% end %>
         </li>
         <li>
-          <div class="round-border">
-            <%= link_to 'Forecast', '/balance_records/new' %>
-          </div>
+          <%= link_to '/balance_records/new' do %>
+           <div class="round-border">
+              Forecast
+           </div>
+          <% end %>
         </li>
         <li class="pull-right">
           <div class="round-border">
