@@ -21,6 +21,7 @@
     You must be logged in!
   <% else %>
     <div class="plans-form pull-right">
+      <h1>New Plan</h1>
       <%= form_for :plan, url: "/plans/create" do |f| %>
         <p>
           <%= f.label :name %><br>
