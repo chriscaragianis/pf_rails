@@ -83,7 +83,7 @@ class PlansController < ApplicationController
   end
   
   def load_chart 
-    render :file => '/public/test.json'
+    render :file => '$HOME/test.json'
   end
 
   private
