@@ -14,6 +14,7 @@
 //= require bootstrap-sprockets
 //= require jquery_ujs
 //= require turbolinks
+//= require jquery.turbolinks
 //= require jquery.flot.js
 //= require jquery.flot.time.js
 //= require lines.js
