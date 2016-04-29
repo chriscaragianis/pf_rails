@@ -76,14 +76,14 @@ class PlansController < ApplicationController
       data["accounts"]["Balance"]["balances"] << [date_conv(rec.date), rec.balance.to_f]
     end
     data_str = JSON.generate(data)
-    File.atomic_write('public/test.json') do |file|
+    File.atomic_write('tmp/test.json') do |file|
       file.write(data_str)
     end
       
   end
   
   def load_chart 
-    render :file => '$HOME/test.json'
+    render :file => '/tmp/test.json'
   end
 
   private
