@@ -40,6 +40,10 @@ input[type="text"], input[type="date"] {
   margin-top: 5px;
 }
 
+.account-box:hover {
+  cursor: pointer;
+}
+
 .account-form, .plans-form {
   width: 40%;
   margin-top: 6em;
