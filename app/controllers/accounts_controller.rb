@@ -16,6 +16,9 @@ class AccountsController < ApplicationController
     end
   end
 
+  def update
+  end
+  
   def show
     @acct = Account.find(params[:id])
     if @acct.user_id != current_user.id then
