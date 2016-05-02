@@ -52,6 +52,7 @@ class PlansController < ApplicationController
   end
 
   def run_plan
+    puts params
     @sc = Plan.find_by(id: params[:plan_choice])
     @sc.balance_records = []
     start_date = Date.parse(params[:start_date])
