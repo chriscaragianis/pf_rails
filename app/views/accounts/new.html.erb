@@ -2,22 +2,22 @@
     <div class="col-md-6">
       <%= form_for :account, url: "/accounts/create" do |f| %>
         <p>
-          <%= f.label :acct_name %><br>
+          <%= f.label :acct_name, "Account title" %><br>
           <%= f.text_field :acct_name, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :balance %><br>
+          <%= f.label :balance, "Current account balance (negative for debts)" %><br>
           <%= f.text_field :balance, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :rate %><br>
+          <%= f.label :rate, "Interest rate (APR)" %><br>
           <%= f.text_field :rate, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :min_rate %><br>
+          <%= f.label :min_rate, "Minimum payment as a %" %><br>
           <%= f.text_field :min_rate, class: 'form-control' %>
         </p>
 

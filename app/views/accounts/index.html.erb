@@ -19,62 +19,65 @@
       </div>
     </div>
   <% end %>
+  <br/>
+  <span class="account-legend">Click to show/hide details</span>
 </div>
     <div class="account-form pull-right">
       <h1> New Account </h1>
       <%= form_for :account, url: "/accounts/create" do |f| %>
         <p>
-          <%= f.label :acct_name %><br>
+          <%= f.label :acct_name, "Account title" %><br>
           <%= f.text_field :acct_name, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :balance %><br>
+          <%= f.label :balance, "Current Balance" %><br>
           <%= f.text_field :balance, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :rate %><br>
+          <%= f.label :rate, "Interest rate (APR)" %><br>
           <%= f.text_field :rate, class: 'form-control' %>
         </p>
-
+        
         <p>
-          <%= f.label :min_rate %><br>
-          <%= f.text_field :min_rate, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :day %><br>
-          <%= f.text_field :day, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :weekly %><br>
-          <%= f.check_box :weekly, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :week_offset %><br>
-          <%= f.text_field :week_offset, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :week_period %><br>
-          <%= f.text_field :week_period, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :carry_balance %><br>
-          <%= f.check_box :carry_balance, class: 'form-control' %>
-        </p>
-
-        <p>
-          <%= f.label :fixed_amount %><br>
+          <%= f.label :fixed_amount, "Fixed payement (negative for income)" %><br>
           <%= f.text_field :fixed_amount, class: 'form-control' %>
         </p>
 
         <p>
-          <%= f.label :vest_priority %><br>
+          <%= f.label :min_rate, "Minimum payment (percentage, negative for income)" %><br>
+          <%= f.text_field :min_rate, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :day, "Day (Monday = 1 if weekly, day of month otherwise)" %><br>
+          <%= f.text_field :day, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :weekly, "Check if weekly" %><br>
+          <%= f.check_box :weekly, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :week_period, "Weeks per period (if weekly)" %><br>
+          <%= f.text_field :week_period, class: 'form-control' %>
+        </p>
+        
+        <p>
+          <%= f.label :week_offset, "Which week of the period?" %><br>
+          <%= f.text_field :week_offset, class: 'form-control' %>
+        </p>
+
+        <p>
+          <%= f.label :carry_balance, "Check if this account carries a balance" %><br>
+          <%= f.check_box :carry_balance, class: 'form-control' %>
+        </p>
+
+        
+        <p>
+          <%= f.label :vest_priority, "Vest priority" %><br>
           <%= f.text_field :vest_priority, class: 'form-control' %>
         </p>
 
