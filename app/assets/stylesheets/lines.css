@@ -23,7 +23,7 @@ input[type="text"], input[type="date"] {
 #placeholder {
   background-color: aliceblue;
   width: 800px;
-  height: 600px;
+  height: 500px;
 }
 .account-gallery, .plans-gallery, .forecast-box {
   max-width: 40%;
@@ -32,7 +32,9 @@ input[type="text"], input[type="date"] {
 }
 
 .demo-container {
-  margin-top: 6em;
+  position: absolute;
+  top: 4em;
+  left: 10%;
   display: inline-block;
   width: 100%;
 }

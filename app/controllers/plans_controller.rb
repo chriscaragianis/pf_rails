@@ -4,7 +4,8 @@ require 'date_conversion'
 
 class PlansController < ApplicationController
   include ApplicationHelper
-
+  respond_to :json, :html
+  
   def index
   end
 
@@ -75,17 +76,9 @@ class PlansController < ApplicationController
     @sc.balance_records.each do |rec|
       data["accounts"]["Balance"]["balances"] << [date_conv(rec.date), rec.balance.to_f]
     end
-    data_str = JSON.generate(data)
-    File.atomic_write('tmp/test.json') do |file|
-      file.write(data_str)
-    end
-      
+    respond_with data  
   end
   
-  def load_chart 
-    render :file => '/tmp/test.json'
-  end
-
   private
     def plan_params
       params.require(:plan).permit(

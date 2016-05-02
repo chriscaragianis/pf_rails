@@ -14,7 +14,7 @@ Rails.application.routes.draw do
 
   # You can have the root of your site routed with "root"
   get "dashboard" => 'users#show'
-  get "plotdata" => 'plans#load_chart'
+  get "plotdata" => 'plans#run_plan'
   root 'welcome#index'
   get 'welcome/setup' => 'welcome#setup'
   get    'signup'  => 'users#new' 
@@ -26,7 +26,7 @@ Rails.application.routes.draw do
   get 'plans/index' => 'plans#index'
   post 'plans/create' => 'plans#create'
   resources :balance_records
-  post '/balance_records/new' => 'plans#run_plan'
+  post '/balance_records/new' => 'plans#index'
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 
