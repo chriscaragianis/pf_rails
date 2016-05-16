@@ -58,7 +58,7 @@ group :development, :test do
 
   gem 'rspec-rails'
 
-  gem 'rspec-core', '~> 3.4.1'
+  gem 'rspec-core', '~> 3.4.4'
   gem 'capybara'
   gem 'nyan-cat-formatter'
 end
