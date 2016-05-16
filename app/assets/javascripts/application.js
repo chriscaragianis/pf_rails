@@ -23,4 +23,8 @@ $(function() {
     $('.account-box').on("click", function() {
         $('.account-details', this).toggle();
     });
+    
+    $('.plan-box').on("click", function() {
+        $('.plan-details', this).toggle();
+    });
 });

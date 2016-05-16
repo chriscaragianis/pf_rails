@@ -9,6 +9,10 @@
         <li id="<%= 'pl-#{sc.id}' %>">
           <div class="plan-box white round-border">
              <%= "#{sc.name}, Vest Level: #{sc.vest_level}, id: #{sc.id}" %>
+             <div class="plan-details" style="display:none">
+              <a href="update">Update</a></br>
+              <%= link_to "Delete", "/plans/delete/#{sc.id}", :method => :delete %>
+              </div>
           </div>
         </li>
       <% end %>
